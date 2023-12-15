@@ -1,0 +1,13 @@
+tables:
+  - app_account
+db:
+  url: jdbc:mysql://127.0.0.1:3306/zhz?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false
+  username: root
+  password: robot@mysql
+author: Enigma
+#输出路径
+output: /Users/Enigma/WorkSpace/IdeaProjects/eg-admin/eg-admin-code-generate
+pkg:
+  parent: fun.isite.admin.core
+  module: account
+swagger: true

@@ -1,0 +1,10 @@
+
+spring:
+  profiles:
+    group:
+      dev: core-basic-dev
+    active: @profile.active@
+  application:
+    name: service-api-admin
+server:
+  port: ${service.port.admin}

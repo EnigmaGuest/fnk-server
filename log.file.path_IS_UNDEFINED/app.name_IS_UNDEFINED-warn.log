@@ -1,0 +1,2 @@
+2023-12-14 16:40:50.639 | WARN  | [RID-] [UID-] org.mybatis.spring.mapper.ClassPathMapperScanner:44 => No MyBatis mapper was found in '[fun.isite.service.**.mapper]' package. Please check your configuration.
+2023-12-14 16:40:50.999 | WARN  | [RID-] [UID-] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext:624 => Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'basicConfig': Injection of autowired dependencies failed

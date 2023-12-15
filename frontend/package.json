@@ -1,0 +1,61 @@
+{
+  "name": "admin-main",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A simple and easy-to-use admin template project based on Vue3, Vite3, TypeScript, NaiveUI and UnoCSS.一个简单好用的管理模板项目，基于Vue3、Vite3、TypeScript、NaiveUI和UnoCSS。",
+  "author": {
+    "name": "Enigma",
+    "email": "331139839@qq.com",
+    "url": "https://github.com/EnigmaGuest/naive-admin"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env VITE_SERVICE_ENV=dev vite",
+    "dev:test": "cross-env VITE_SERVICE_ENV=test vite",
+    "dev:prod": "cross-env VITE_SERVICE_ENV=prod vite",
+    "build": "vue-tsc && cross-env VITE_SERVICE_ENV=prod vite build",
+    "build:dev": "cross-env VITE_SERVICE_ENV=dev vite build",
+    "build:test": "cross-env VITE_SERVICE_ENV=test vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "colord": "^2.9.3",
+    "dayjs": "^1.11.10",
+    "echarts": "^5.4.3",
+    "element-resize-detector": "^1.2.4",
+    "form-data": "^4.0.0",
+    "lodash-es": "^4.17.21",
+    "naive-ui": "^2.35.0",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "secure-ls": "^1.2.6",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5",
+    "wangeditor": "^4.7.15"
+  },
+  "devDependencies": {
+    "@amap/amap-jsapi-types": "^0.0.13",
+    "@iconify/json": "^2.2.144",
+    "@iconify/vue": "^4.1.1",
+    "@types/crypto-js": "^4.2.1",
+    "@types/element-resize-detector": "^1.1.6",
+    "@types/node": "^20.9.3",
+    "@unocss/preset-rem-to-px": "^0.57.6",
+    "@unocss/transformer-directives": "^0.57.6",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "sass": "^1.69.5",
+    "tsx": "^4.1.4",
+    "typescript": "^5.2.2",
+    "unocss": "^0.57.6",
+    "unplugin-icons": "^0.17.4",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^5.0.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue-tsc": "^1.8.22",
+    "vuedraggable": "^4.1.0"
+  }
+}
