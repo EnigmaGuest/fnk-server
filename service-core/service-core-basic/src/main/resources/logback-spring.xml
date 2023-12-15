@@ -7,7 +7,7 @@
 <configuration scan="true" scanPeriod="10 seconds">
     <contextName>logback</contextName>
 
-    <springProperty scope="context" name="log.file.path" source="logging.file.path"/>
+    <springProperty scope="context" name="logging.file.path" source="logging.file.path"/>
     <springProperty scope="context" name="app.name" source="spring.application.name" default="app"/>
     <!-- name的值是变量的名称，value的值时变量定义的值。通过定义的值会被插入到logger上下文中。定义后，可以使“${}”来使用变量。 -->
     <!--    <property name="log.file.path" value="/data/hotel-server/logs"/>-->
@@ -41,7 +41,7 @@
     <!-- 2.1 level为 DEBUG 日志，时间滚动输出  -->
     <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文档的路径及文档名 -->
-        <file>${log.file.path}/${app.name}-debug.log</file>
+        <file>${logging.file.path}/${app.name}-debug.log</file>
         <!--日志文档输出格式-->
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -50,7 +50,7 @@
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志归档 -->
-            <fileNamePattern>${log.file.path}/${app.name}/debug-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logging.file.path}/${app.name}/debug-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -68,7 +68,7 @@
     <!-- 2.2 level为 INFO 日志，时间滚动输出  -->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文档的路径及文档名 -->
-        <file>${log.file.path}/${app.name}-info.log</file>
+        <file>${logging.file.path}/${app.name}-info.log</file>
         <!--日志文档输出格式-->
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -77,7 +77,7 @@
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 每天日志归档路径以及格式 -->
-            <fileNamePattern>${log.file.path}/${app.name}/info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logging.file.path}/${app.name}/info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -95,7 +95,7 @@
     <!-- 2.3 level为 WARN 日志，时间滚动输出  -->
     <appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文档的路径及文档名 -->
-        <file>${log.file.path}/${app.name}-warn.log</file>
+        <file>${logging.file.path}/${app.name}-warn.log</file>
         <!--日志文档输出格式-->
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -103,7 +103,7 @@
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.file.path}/${app.name}/warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logging.file.path}/${app.name}/warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -121,7 +121,7 @@
     <!-- 2.4 level为 ERROR 日志，时间滚动输出  -->
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文档的路径及文档名 -->
-        <file>${log.file.path}/${app.name}-error.log</file>
+        <file>${logging.file.path}/${app.name}-error.log</file>
         <!--日志文档输出格式-->
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -129,7 +129,7 @@
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.file.path}/${app.name}/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logging.file.path}/${app.name}/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
