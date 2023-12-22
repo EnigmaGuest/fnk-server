@@ -1,4 +1,5 @@
 import {FormItemRule, FormRules, GridItemProps, GridProps} from "naive-ui";
+import type { ButtonProps } from 'naive-ui/lib/button';
 import {REGEXP_PHONE} from "@/config";
 
 
@@ -26,7 +27,7 @@ export type FiledType =
 export  type FiledRuleType = 'string' | 'number' | 'array' | 'boolean' | string
 
 interface FiledOptions {
-    options?: any[] | Record<string, any>,
+    options?: any[],
     required?: boolean,
     placeholder?: string,
     suffix?: string,
@@ -47,11 +48,13 @@ export interface BaseFormItemProps {
     field: string,
     /** 标题解释 */
     labelMessage?: string;
+    required?: boolean,
     filedType: FiledType,
     ruleType?: FiledRuleType,
     filedOptions?: FiledOptions,
     slot?: string,
     giProps?: GridItemProps;
+    customRule?: Array<FormItemRule>
     isFull?: boolean;
     isSearch?: boolean,
     suffix?: string;
@@ -75,6 +78,8 @@ export interface BaseFormProps {
     disabled?: boolean,
     /** 是否full */
     isFull?: boolean;
+    /** 是否搜索 搜索模式没有rule */
+    isSearch?: boolean;
     gridProps?: GridProps;
     giProps?: GridItemProps;
     /** 默认展示的行数  */
@@ -84,6 +89,9 @@ export interface BaseFormProps {
     /** 提交按钮文字 */
     submitText?: string;
     resetText?: string;
+    // 确认按钮配置
+    submitButtonOptions?: ButtonProps;
+    resetButtonOptions?: ButtonProps;
 }
 
 // 生成rules
@@ -91,14 +99,14 @@ export function generateRules(items: Array<BaseFormItemProps>): FormRules {
     const rules: FormRules = {};
     items.forEach(item => {
         let itemRules = [];
-        if (item.filedOptions?.required) {
+        if (item?.required) {
             let ruleType: FiledRuleType = item?.ruleType
             if (!ruleType) {
-                if (['number', 'string'].includes(item?.filedType)) {
+                if  (['string'].includes(item?.filedType)) {
                     ruleType = 'string'
                 } else if (['select-user', 'select'].includes(item?.filedType) && item.filedOptions?.multiple) {
                     ruleType = 'array'
-                } else if (item.filedType == 'slider') {
+                } else if (['slider','number'].includes(item?.filedType)) {
                     ruleType = 'number'
                 } else if (item.filedType === 'switch') {
                     ruleType = 'boolean'
@@ -122,7 +130,7 @@ export function generateRules(items: Array<BaseFormItemProps>): FormRules {
                                 return Promise.reject(new Error('请选择地图坐标'))
                             }
                         },
-                        trigger: '[blur]'
+                        trigger: ['blur']
                     })
                     break;
                 case "phone":
@@ -134,12 +142,16 @@ export function generateRules(items: Array<BaseFormItemProps>): FormRules {
                     })
                     break;
                 default:
-                    itemRules.push({
-                        required: true,
-                        ruleType: ruleType,
-                        message: item.label + '为必填项',
-                        trigger: '[blur]'
-                    })
+                    if (item.customRule){
+                        itemRules.push(...item.customRule)
+                    }else {
+                        itemRules.push({
+                            required: true,
+                            type: ruleType,
+                            message: item.label + '为必填项',
+                            trigger: ['blur']
+                        })
+                    }
             }
         }
         rules[item.field] = itemRules;

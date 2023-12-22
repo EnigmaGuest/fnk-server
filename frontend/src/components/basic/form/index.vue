@@ -1,6 +1,6 @@
 <template>
   <div ref="formBoxRef">
-    <n-form v-bind="props" ref="baseFormRef" :model="props.data" :rules="rules" :inline="props.inline">
+    <n-form v-bind="props" ref="baseFormRef" :model="data" :rules="rules" :inline="props.inline">
       <n-grid v-bind="getGridProps">
         <n-gi v-bind="item.giProps" v-for="item in props.items" :key="item.field">
           <n-form-item :path="item.field" :label="props.showLabel?item.label:''">
@@ -22,17 +22,44 @@
                   :name="item.slot"
                   :model="props.data"
                   :field="item.field"
+                  :item="item"
                   :value="props.data[item.field]"
               ></slot>
             </template>
+            <template v-else-if="item.filedType === 'number'">
+              <n-input-number v-model:value="props.data[item.field]"
+                              class="w-full"
+                              :placeholder="item.filedOptions?.placeholder??`请输入${item.label}`"
+                              v-bind="item.filedOptions"/>
+            </template>
+            <template v-else-if="item.filedType === 'switch'">
+              <n-switch v-model:value="props.data[item.field]"
+                        v-bind="item.filedOptions" :checked-value="true" :unchecked-value="false"/>
+            </template>
+            <template v-else-if="item.filedType === 'select'">
+              <n-select v-model:value="props.data[item.field]"
+                        :placeholder="item.filedOptions?.placeholder??`请选择${item.label}`"
+                        v-bind="item.filedOptions"/>
+            </template>
             <template v-else-if="item.filedType === 'upload'"></template>
-            <template v-else-if="item.filedType === 'string'">
+            <template v-else-if="['string','phone'].includes(item.filedType)">
               <n-input
                   v-model:value="props.data[item.field]"
                   :placeholder="item.filedOptions?.placeholder??`请输入${item.label}`"
                   v-bind="item.filedOptions"
               ></n-input>
             </template>
+            <template v-else-if="['date','datetime'].includes(item.filedType)">
+              <n-date-picker
+                  class="w-full"
+                  v-model:formatted-value="props.data[item.field]"
+                  :type="item.filedType as any"
+                  :value-format="item?.filedType==='date' ? 'yyyy-MM-dd':'yyyy-MM-dd HH:mm:ss'"
+                  :placeholder="item.filedOptions?.placeholder??`请选择${item.label}`"
+                  v-bind="item.filedOptions"
+              ></n-date-picker>
+            </template>
+
           </n-form-item>
         </n-gi>
         <n-gi v-if="showActionGroup" :span="props.inline?'':'24'" :suffix="props.inline" #="{overflow}">
@@ -40,8 +67,8 @@
                    :justify="props.inline ? 'end' : 'center'"
                    :style="{ 'margin-left': `${!props.inline ? 12 : props.labelWidth}px`,'margin-bottom':`${!overflow ? 24 : 0}px`}">
             <slot name="actionGroup">
-              <n-button type="primary" @click="submit">{{props.submitText}}</n-button>
-              <n-button @click="reset">{{props.resetText}}</n-button>
+              <n-button v-bind="submitBtnOptions" @click="submit">{{ props.submitText }}</n-button>
+              <n-button v-bind="resetBtnOptions" @click="reset">{{ props.resetText }}</n-button>
               <n-button @click="unfoldToggle" type="primary" text icon-placement="right" v-if="isShowCollapse">
                 <template #icon>
                   <icon-line-md:chevron-left class="rotate-270" v-if="overflow"/>
@@ -74,13 +101,21 @@ const props = withDefaults(defineProps<BaseFormProps>(), {
   giProps: () => ({}),
   gridProps: () => ({}),
   collapsedRows: 1,
+  isSearch: false,
   showActionGroup: true,
-  submitText:"提交",
-  resetText:"重置"
+  submitText: "提交",
+  resetText: "重置",
+  submitButtonOptions: () => ({}),
+  resetButtonOptions: () => ({}),
 })
 
 
-const rules = computed(() => generateRules(props.items))
+const rules = computed(() => {
+  if (props.isSearch) {
+    return {}
+  }
+  return generateRules(props.items)
+})
 const gridCollapsed = ref(true);
 
 const getGridProps = computed((): GridProps => {
@@ -102,18 +137,19 @@ const emits = defineEmits<{
    */
   (e: "submit", data: boolean): void;
   (e: "reset"): void;
-  (e:"collapse",height:number) :void;
-  (e:"update:data",data:any):void;
+  (e: "collapse", height: number): void;
+  (e: "update:data", data: any): void;
 }>()
 const baseFormRef = ref();
 const formBoxRef = ref();
 const formHeight = ref(58)
+
 function unfoldToggle() {
   gridCollapsed.value = !gridCollapsed.value;
 
-  nextTick(()=>{
+  nextTick(() => {
     formHeight.value = formBoxRef.value?.clientHeight
-    emits("collapse",formHeight.value )
+    emits("collapse", formHeight.value)
   })
 }
 
@@ -124,6 +160,22 @@ const isShowCollapse = computed(() => {
 const actionState = reactive({
   submitLoading: false,
   resetLoading: false,
+})
+const submitBtnOptions = computed(() => {
+  return {
+    size: props.size,
+    type: 'primary' as any,
+    loading: actionState.submitLoading,
+    ...props?.submitButtonOptions
+  }
+})
+const resetBtnOptions = computed(() => {
+  return {
+    size: props.size,
+    type: 'default' as any,
+    loading: actionState.resetLoading,
+    ...props?.resetButtonOptions
+  }
 })
 
 async function submit() {
@@ -146,15 +198,18 @@ async function submit() {
     validateRes = false
   }
   emits("submit", validateRes)
+  actionState.submitLoading = false;
   return validateRes;
 }
 
 function reset() {
+  actionState.resetLoading = true;
   Object.keys(props.data).forEach((key) => {
     props.data[key] = null;
   });
   emits("reset")
-  emits("update:data",props.data)
+  emits("update:data", props.data)
+  actionState.resetLoading = false;
 }
 
 

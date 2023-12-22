@@ -7,7 +7,6 @@ import ${superServiceClassPackage};
 * ${table.comment!} 服务接口层
 *
 * @author ${author}
-* @since ${date}
 */
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 

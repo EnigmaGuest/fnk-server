@@ -8,7 +8,7 @@ const router: PageRoute =
         redirect: '/home/index',
         meta: {
             title: '首页',
-            icon: 'line-md:cloud-tags-loop',
+            icon: 'icon-park:workbench',
             keepAlive: true,
         },
         component: () => basicLayout(),

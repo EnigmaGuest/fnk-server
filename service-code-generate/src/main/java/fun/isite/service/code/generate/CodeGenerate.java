@@ -22,12 +22,14 @@ import java.util.HashMap;
  * 使用此生成器需要将 resources/generate-template.yml 复制一份为 generate-template-dev.yml <br>
  * 根据自己的需要修改配置内的字段属性即可 <br>
  * <a href="https://baomidou.com/pages/981406/">.配置参考->代码生成器配置新 .</a>
+ *
  * @author Enigma
  */
 public class CodeGenerate {
 
     public static void main(String[] args) {
         new CodeGenerate().run("generate-template-dev.yml");
+        System.out.println("代码生成完成");
     }
 
     public void run(String templateName) {
@@ -53,9 +55,9 @@ public class CodeGenerate {
     private void generate(CodeGenerateConfig config) {
         FastAutoGenerator.create(config.getDb().getUrl(), config.getDb().getUsername(), config.getDb().getPassword())
                 .globalConfig(builder -> {
+                    builder.disableOpenDir();
                     builder.author(config.getAuthor())
-//                            .fileOverride() // 全局覆盖已有文件的配置已失效，已迁移到策略配置中
-                            .enableSwagger()
+                            .fileOverride() // 全局覆盖已有文件的配置已失效，已迁移到策略配置中
                             .outputDir(config.getOutput());
                     if (config.isSwagger()) {
                         builder.enableSwagger();
@@ -64,7 +66,8 @@ public class CodeGenerate {
                 .packageConfig(builder -> builder.parent(config.getPkg().getParent())
                         .moduleName(config.getPkg().getModule())
                         .xml("resources.mapper")
-                        .serviceImpl("impl"))
+                        .serviceImpl("impl")
+                )
                 .templateConfig(builder -> {
                     builder.entity("/templates/entity");
                     builder.controller("/templates/controller");
@@ -74,27 +77,27 @@ public class CodeGenerate {
                 .strategyConfig(builder -> builder.addInclude(config.getTables())
                         // Entity 策略配置
                         .entityBuilder()
-                        .enableFileOverride()
+//                        .enableFileOverride()
                         .enableLombok()
                         .disableSerialVersionUID()
                         .superClass(BaseEntity.class)
-                        .addIgnoreColumns("created_at", "updated_at", "deleted")
+                        .addIgnoreColumns("create_time", "update_time", "deleted")
                         // Service 策略配置
                         .serviceBuilder()
-                        .enableFileOverride()
+//                        .enableFileOverride()
                         .formatServiceFileName("I%sService")
                         .formatServiceImplFileName("%sService")
                         .superServiceClass(IBaseService.class)
                         .superServiceImplClass(BaseService.class)
                         // Controller 策略配置
                         .controllerBuilder()
-                        .enableFileOverride()
+//                        .enableFileOverride()
                         .formatFileName("%sController")
                         .superClass(BaseController.class)
                         .enableRestStyle()
                         // Mapper 策略配置
                         .mapperBuilder()
-                        .enableFileOverride()
+//                        .enableFileOverride()
                         .superClass(BaseMapper.class)
                         .formatMapperFileName("%sMapper")
                         .enableMapperAnnotation()
@@ -103,6 +106,7 @@ public class CodeGenerate {
                 .injectionConfig(builder -> {
                     builder.customFile(new HashMap<String, String>() {{
                         put("index.vue", "/templates/vue-page.ftl");
+                        put("entity-drawer.vue", "/templates/vue-drawer.ftl");
                     }});
                 })
                 .templateEngine(new FreemarkerTemplateEngine())

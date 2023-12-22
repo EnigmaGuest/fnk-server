@@ -11,10 +11,12 @@
 
     <artifactId>service-api-admin</artifactId>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>fun.isite.service</groupId>
+            <artifactId>service-core-system</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

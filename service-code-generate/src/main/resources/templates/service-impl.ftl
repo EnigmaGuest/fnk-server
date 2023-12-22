@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 * ${table.comment!} 服务实现层
 *
 * @author ${author}
-* @since ${date}
 */
 @Service
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {

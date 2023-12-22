@@ -1,13 +1,13 @@
 <template>
   <!--  搜索  -->
   <div>
-    <n-card :bordered="false" :content-style="{margin:0,padding:0 }" class="px-24px pt-20px mb-12px">
-      <BaseForm :data="formData" v-if="searchFormFields.length" :items="searchFormFields" inline ref="formDom"
-                @collapse="getTableHeight"
+    <n-card :bordered="false"  v-if="searchFormFields.length" :content-style="{margin:0,padding:0 }" class="px-24px mt-6px pt-20px mb-12px">
+      <BaseForm :data="formData" :items="searchFormFields" inline ref="formDom"
+                @collapse="getTableHeight" is-search
                 submit-text="搜索"
                 :grid-props="{cols: props.searchCols}" @submit="onFormSubmit" @reset="onGetTableData"/>
     </n-card>
-    <n-card :bordered="false" :content-style="{margin:0 }" class=" mb-12px">
+    <n-card :bordered="false" :content-style="{margin:0,padding:'16px' }" class="mb-12px mt-10px">
       <div class="flex items-center justify-between w-full mb-12px" ref="headDom">
         <!--     左     -->
         <div class="flex-col">
@@ -38,16 +38,14 @@
             <icon-line-md:plus class='mr-4px text-20px'/>
             新增数据
           </n-button>
-          <n-button @click='' type='primary'>
+          <n-button @click='onGetTableData' type='primary'>
             <icon-line-md:rotate-270 class='mr-4px text-16px' :class="{ 'animate-spin': props.loading }"/>
             刷新表格
           </n-button>
         </n-space>
       </div>
-      <n-data-table :columns="tableColumns" :data="tableData" :loading="props.loading" striped :pagination="pagination"
-                    :max-height="tableHeight" :scroll-x="tableHeight"
-                    @update:page-size="onPageSizeChange" @update:page="onPageChange">
-
+      <n-data-table :columns="tableColumns" :row-key="(rowData:any)=>rowData[props.rowKey]" :data="tableData" :loading="props.loading" striped :pagination="pagination"
+                    :max-height="tableHeight" :scroll-x="tableHeight" @update:page-size="onPageSizeChange" @update:page="onPageChange">
       </n-data-table>
     </n-card>
   </div>
@@ -73,7 +71,8 @@ const props = defineProps({
     default: null
   },
   rowKey: {
-    type: String
+    type: String,
+    default: 'id'
   },
   data: {
     type: Object as PropType<any | any[]>
@@ -126,6 +125,10 @@ const props = defineProps({
   searchCols :{
     type:Number,
     default:4
+  },
+  isSelect:{
+    type:Boolean,
+    default:false
   }
 })
 
@@ -155,16 +158,19 @@ const emits = defineEmits<{
   (e: 'add'): void;
 }>()
 
-const formData = reactive({
-});
+const formData = reactive({});
+
+// 分页数据
 const pagination = reactive({
   page: parseInt(props.data?.current ?? 1),
-  pageSize: 10,
+  pageSize: parseInt(props.data?.size ?? 10),
+  pageCount: parseInt(props.data?.total ?? 1),
   pageSizes: [10, 20, 30, 40, 50],
   showSizePicker: true
 });
 
 const tableColumns = computed(() => {
+
   const columns = props.columns.map((item: ITableColumn) => {
     return {
       key: item.field,
@@ -187,6 +193,11 @@ const tableColumns = computed(() => {
       width: defaultAction.labelWidth ?? 100,
       ...defaultAction
     } as any)
+  }
+  if (props.isSelect){
+    return [{
+      type: 'selection',
+    },...columns]
   }
   return columns
 })
@@ -231,16 +242,15 @@ const defaultAction = reactive<ITableColumn>({
 });
 
 const tableData = computed(() => {
-      if (!props.data) {
-        return []
-      }
-      if (props.data instanceof Array) {
-        return props.data
-      } else {
-        return props.data[props.dataKey]
-      }
-    }
-)
+  if (!props.data) {
+    return []
+  }
+  if (props.type === 'list') {
+    return props.data
+  } else {
+    return props.data[props.dataKey]
+  }
+})
 
 const searchFormFields = computed(() => {
   if (!props.searchFormItems) {
@@ -278,9 +288,9 @@ function onPageSizeChange(pageSize: number) {
 // 高度处理
 function getTableHeight(num?: number) {
   if (num) {
-    tableHeight.value = window.innerHeight - 108 - num - 20 - getDomHeight(headDom) - 80 - 86
+    tableHeight.value = window.innerHeight - 108 - num - 20 - getDomHeight(headDom) - 80 - 86 - 12
   } else {
-    tableHeight.value = window.innerHeight - 108 - formDom.value.height - getDomHeight(headDom) - 80 - 86
+    tableHeight.value = window.innerHeight - 108 - formDom.value?.height - getDomHeight(headDom) - 80 - 86 -6
   }
 }
 
@@ -296,20 +306,21 @@ function onGetTableData() {
       pageSize: pagination.pageSize,
       ...unref(formData)
     })
+    props.getData?.({
+      page: pagination.page,
+      pageSize: pagination.pageSize,
+      ...unref(formData)
+    })
   } else {
     emits('getData', unref(formData))
+    props.getData?.(unref(formData))
   }
 }
 
 onMounted(() => {
   // 获取当前屏幕高度
   getTableHeight()
-})
-
-
-// formData
-watch(() => formData, () => {
-  console.log(formData)
+  onGetTableData()
 })
 
 

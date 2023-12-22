@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,15 +38,15 @@ public abstract class BaseEntity<T extends Model<T>> extends Model<T> {
     private String id;
 
     @TableField(fill = FieldFill.INSERT)
-    @Schema(name = "createdAt", description = "创建时间")
-    private Date createdAt;
+    @Schema(name = "createTime", description = "创建时间")
+    private Date createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(name = "updatedAt", description = "最后更新时间")
-    private Date updatedAt;
+    @Schema(name = "updatedTime", description = "最后更新时间")
+    private Date updateTime;
 
     @TableLogic
     @Schema(name = "deleted",description = "删除标记")
-    //@JsonIgnore
+    @JsonIgnore
     private short deleted;
 }

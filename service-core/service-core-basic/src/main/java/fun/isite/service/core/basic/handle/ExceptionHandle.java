@@ -3,16 +3,15 @@ package fun.isite.service.core.basic.handle;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
-import fun.isite.service.common.bean.consts.EnvConst;
 import fun.isite.service.common.bean.exception.AuthException;
 import fun.isite.service.common.bean.exception.LogicException;
 import fun.isite.service.common.bean.exception.NotFoundException;
 import fun.isite.service.common.bean.exception.NotHasPermissionException;
 import fun.isite.service.common.bean.http.ResponseCode;
 import fun.isite.service.common.bean.http.RestResponse;
-import fun.isite.service.core.basic.config.BasicConfig;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -71,6 +70,10 @@ public class ExceptionHandle {
         }
         return RestResponse.fail(errMessage, null, ResponseCode.PARAMS_FAIL);
     }
+    @ExceptionHandler(value = {PersistenceException.class})
+    public RestResponse<String> argumentNotValidFail(HttpServletResponse res, PersistenceException e) {
+        return RestResponse.fail("数据库错误", null, ResponseCode.PARAMS_FAIL);
+    }
 
 
     @ExceptionHandler(value = {
@@ -87,11 +90,8 @@ public class ExceptionHandle {
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public RestResponse<String> unknown(Exception e) {
-        String msg = null;
-        if (!EnvConst.PROD.equals(BasicConfig.getEnv())) {
-            msg = e.getMessage();
-        }
+        e.printStackTrace();
         log.error(e.getMessage());
-        return RestResponse.fail("未知异常", msg, ResponseCode.UNKNOWN_ERROR);
+        return RestResponse.fail("未知异常", e.getMessage(), ResponseCode.UNKNOWN_ERROR);
     }
 }

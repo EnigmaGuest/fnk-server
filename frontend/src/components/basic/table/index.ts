@@ -9,6 +9,7 @@ export interface ITableColumn {
     height?: number,
     width?: number,
     fixed?: boolean|string,
+    tree?: boolean,
     typeOptions?: {
         switchTag?: {
             trueText?: string,
@@ -25,6 +26,6 @@ export interface ITableColumn {
 }
 
 
-type ColumnType = 'image' | 'switch' | 'select' | 'date' | 'datetime' | 'avatar' | 'string' | 'tag'
+type ColumnType = 'image' | 'switch' | 'select' | 'date' | 'datetime' | 'avatar' | 'string' | 'tag' | 'number'
 
 

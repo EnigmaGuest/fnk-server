@@ -164,7 +164,7 @@ public interface IBaseService<T extends BaseEntity<T>> extends IService<T> {
      * @param customQuery 自定义查询
      * @return 记录
      */
-    T getLastByCreatedAt(@Nullable CustomBasicPageQuery<T> customQuery);
+    T getLastByCreateTime(@Nullable CustomBasicPageQuery<T> customQuery);
 
     /**
      * 获取服务模型名称

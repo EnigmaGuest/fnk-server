@@ -16,6 +16,7 @@
 import {reactive, ref} from "vue";
 import {useAuthStore} from "@/store";
 import {useRouter} from "vue-router";
+import {loginAdmin} from "@/service/api/account";
 
 const ua = useAuthStore()
 const router = useRouter()
@@ -26,8 +27,8 @@ const rules = reactive({
 const formRef = ref(null)
 const loading = ref(false)
 const formValue = reactive({
-  phone: "18145000000",
-  password: "123123"
+  phone: "18888888888",
+  password: "123456"
 })
 
 const handleSubmit = async () => {
@@ -44,17 +45,22 @@ const handleSubmit = async () => {
     })
     loading.value = false
   }
-
   if (validate) {
-    await ua.login()
-    // @ts-ignore
-    window.$message?.success('登录成功')
-    // todo 实际登录
-    setTimeout(() => {
+    const {data,error} =  await loginAdmin(formValue)
+    if (!error) {
+      let flog =  await ua.loginByToken(data.tokenValue)
+     if (flog) {
+       goHome()
+      }else {
+       // @ts-ignore
+       window.$message?.error("用户信息获取失败")
+        loading.value = false
+     }
+    }else {
       loading.value = false
-      goHome()
-    }, 1000)
+    }
   }
+
 }
 
 function goHome() {

@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {routeModuleList, router} from "@/router";
 import {useAuthStore} from "@/store";
 import {PageRoute} from "@/typings/route";
-import {generateMenus, getCacheRoutes, renderIcon} from "@/utils";
+import {dynamicGenerateMenus, generateMenus, getCacheRoutes, groupMenuItems, renderIcon} from "@/utils";
 import {System} from "@/typings/system";
 import {nextTick} from "vue";
 
@@ -61,8 +61,13 @@ export const useRouteStore = defineStore({
         },
         // 初始化动态路由
         async initDynamicRoute() {
-            const {resetAuthStore} = useAuthStore()
+            const {userInfo} = useAuthStore()
             // 获取动态路由
+            let menus = []
+            Object.assign(menus, userInfo?.menus)
+            const menuItems:IMenus[] = groupMenuItems(menus)
+            // 生成路由
+            console.log(dynamicGenerateMenus(menuItems))
             // 添加菜单
             this.isInitRoute = true;
         },
@@ -81,6 +86,7 @@ export const useRouteStore = defineStore({
         async initRoute() {
             if (this.routeMode === 'static') {
                 await this.initStaticRoute()
+                await this.initDynamicRoute()
             } else {
                 await this.initDynamicRoute()
             }

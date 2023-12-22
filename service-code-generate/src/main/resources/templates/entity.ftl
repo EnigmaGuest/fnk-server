@@ -4,8 +4,7 @@ package ${package.Entity};
 import ${pkg};
 </#list>
 <#if swagger>
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 </#if>
 <#if entityLombokModel>
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ import lombok.NoArgsConstructor;
 * ${table.comment!}
 *
 * @author ${author}
-* @since ${date}
 */
 <#if entityLombokModel>
 @EqualsAndHashCode(callSuper = true)
@@ -33,10 +31,10 @@ import lombok.NoArgsConstructor;
 </#if>
 </#if>
 <#if table.convert>
-@TableName("${schemaName}${table.name}")
+@TableName(value="${schemaName}${table.name}",autoResultMap = true)
 </#if>
 <#if swagger>
-@ApiModel(value = "${entity}", description = "${table.comment!}")
+@Schema(name = "${entity}", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
 public class ${entity} extends ${superEntityClass}<${entity}><#if activeRecord><${entity}></#if> {
@@ -62,7 +60,7 @@ public class ${entity} {
     * ${field.comment}
     */
     <#if swagger>
-    @ApiModelProperty("${field.comment}")
+    @Schema(description="${field.comment}")
     </#if>
 </#if>
 <#if field.keyFlag>

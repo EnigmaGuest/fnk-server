@@ -26,7 +26,7 @@
     "element-resize-detector": "^1.2.4",
     "form-data": "^4.0.0",
     "lodash-es": "^4.17.21",
-    "naive-ui": "^2.35.0",
+    "naive-ui": "^2.36.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",
     "secure-ls": "^1.2.6",

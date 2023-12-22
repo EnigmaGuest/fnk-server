@@ -178,7 +178,11 @@
                 <artifactId>service-api-admin</artifactId>
                 <version>${eg-service.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>fun.isite.service</groupId>
+                <artifactId>service-core-system</artifactId>
+                <version>${eg-service.version}</version>
+            </dependency>
             <!--    service - dep end    -->
         </dependencies>
     </dependencyManagement>

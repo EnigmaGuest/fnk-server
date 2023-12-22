@@ -36,3 +36,10 @@ build/
 .dev
 .prod
 
+### code-generate ###
+/code-generate
+### logging ###
+/logging.*
+
+
+/service-code-generate/src/main/resources/generate-template-dev.yml

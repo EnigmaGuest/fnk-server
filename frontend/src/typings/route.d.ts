@@ -8,7 +8,7 @@ import {RouteComponent, RouteMeta, RouteRecordRaw} from "vue-router";
  * - self - 作为子路由，使用自身的布局(作为最后一级路由，没有子路由) 未用到哈
  * - iframe - 内嵌页面 href不能为空 () => import('vue').VNodeChild
  */
-type RouteComponentType = 'iframe' | 'basic' | 'blank' |RouteComponent  ;
+type RouteComponentType = 'iframe' | 'basic' | 'blank' | RouteComponent  ;
 
 interface PageRoute {
     /** 路由名称(路由唯一标识) */

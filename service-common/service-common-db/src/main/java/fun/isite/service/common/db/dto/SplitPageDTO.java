@@ -38,12 +38,12 @@ public class SplitPageDTO implements Serializable {
     /**
      * 查询条件-创建时间
      */
-    @Schema(name = "createdAt", description = "查询条件-创建时间")
-    private String createdAt;
+    @Schema(name = "createTime", description = "查询条件-创建时间")
+    private String createTime;
 
     /**
      * 查询条件-更新时间
      */
-    @Schema(name = "updatedAt", description = "查询条件-更新时间")
-    private String updatedAt;
+    @Schema(name = "updateTime", description = "查询条件-更新时间")
+    private String updateTime;
 }

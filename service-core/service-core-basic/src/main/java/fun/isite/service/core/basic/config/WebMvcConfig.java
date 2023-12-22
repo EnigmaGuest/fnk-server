@@ -109,24 +109,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         jsonHttpMessageConverter.setDefaultCharset(StandardCharsets.UTF_8);
         jsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
         converters.add(jsonHttpMessageConverter);
-        // 解决swagger加载问题
-//        converters.add(new ByteArrayHttpMessageConverter());
-//        converters.add(new MappingJackson2HttpMessageConverter(new Jackson2ObjectMapperBuilder() {
-//            @Override
-//            public void configure(ObjectMapper objectMapper) {
-//                SimpleModule module = new SimpleModule();
-//                if (AuthClientConst.ADMIN.equals(clientTag)) {
-//                    module.addSerializer(Long.class, ToStringSerializer.instance);
-//                    module.addSerializer(Long.TYPE, ToStringSerializer.instance);
-//                }
-//                objectMapper.registerModule(module)
-//                        .setSerializationInclusion(JsonInclude.Include.ALWAYS)
-//                        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-//                        .setLocale(Locale.CHINA)
-//                        .setTimeZone(TimeZone.getTimeZone(ZoneId.of("GMT+8")))
-//                        .setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-//            }
-//        }.build()));
     }
 
 }

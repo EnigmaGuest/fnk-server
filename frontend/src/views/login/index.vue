@@ -1,31 +1,27 @@
 <template>
   <app-container height="100vh">
-    <n-grid cols="5" item-responsive>
-      <n-grid-item span="0 400:5 600:5 800:5 1000:3" :offset="1">
-        <div class="login">
-          <div class="absolute right-10 top-10">
-            <dark-switch/>
-          </div>
-          <div class="login-item ">
-            <icon-local-login-bg class="text-500px text-primary  px-20px"/>
-          </div>
-          <div class="login-item px-4 w-360px ">
-            <PageLogo/>
-            <p class="text-20px my-4">登录</p>
-            <n-tabs type="segment">
-              <n-tab-pane name="chap1" tab="账号密码">
-               <transition name="fade-slide" mode="out-in" appear>
-                 <LoginPassword/>
-                </transition>
-              </n-tab-pane>
-              <n-tab-pane name="chap2" tab="扫码登录">
-                <login-qrcode/>
-              </n-tab-pane>
-            </n-tabs>
-          </div>
-        </div>
-      </n-grid-item>
-    </n-grid>
+    <div class="login">
+      <div class="absolute right-10 top-10">
+        <dark-switch/>
+      </div>
+      <div class="login-item login-banner">
+        <icon-local-login-bg class="text-500px text-primary  px-20px"/>
+      </div>
+      <div class="login-item px-4 w-360px ">
+        <PageLogo/>
+        <p class="text-20px my-4">登录</p>
+        <n-tabs type="segment">
+          <n-tab-pane name="chap1" tab="账号密码">
+            <transition name="fade-slide" mode="out-in" appear>
+              <LoginPassword/>
+            </transition>
+          </n-tab-pane>
+          <n-tab-pane name="chap2" tab="扫码登录">
+            <login-qrcode/>
+          </n-tab-pane>
+        </n-tabs>
+      </div>
+    </div>
   </app-container>
 </template>
 <script setup lang="ts">
@@ -41,19 +37,7 @@ import LoginQrcode from "@/views/login/components/login-qrcode.vue";
 const ua = useAuthStore()
 
 const router = useRouter()
-const login = async () => {
-  await ua.login()
-}
 
-function goHome() {
-  const {query} = router.currentRoute.value
-  if (query?.redirect) {
-    console.log(query.redirect)
-    router.push({path: query.redirect as string})
-  } else {
-    router.push({name: 'home'})
-  }
-}
 </script>
 
 <style scoped lang="scss">
@@ -74,6 +58,13 @@ function goHome() {
 
   &--left {
     background: linear-gradient(140.02deg, #f9f9fa, #f7f8ff);
+  }
+}
+
+// 当屏幕小于800px时，左侧隐藏
+@media screen and (max-width: 1000px) {
+  .login-banner{
+    display: none;
   }
 }
 </style>

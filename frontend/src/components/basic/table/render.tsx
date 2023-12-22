@@ -9,19 +9,19 @@ export function generateTableColumnRender(field: ITableColumn) {
             res = (data: any) => {
                 return (
                     <NTag round type={data[field.field] ? 'success' : 'error'}
-                          size='small'>{data[field.field] ? field?.typeOptions.switchTag?.trueText ?? '开启' :
-                        field?.typeOptions.switchTag?.falseText ?? '关闭'}</NTag>
+                          size='small'>{data[field.field] ? field?.typeOptions?.switchTag?.trueText ?? '开启' :
+                        field?.typeOptions?.switchTag?.falseText ?? '关闭'}</NTag>
                 )
             }
             break
         case "select":
             res = (data: any) => {
                 const val = data[field.field]
-                if (field.typeOptions.options) {
+                if (field?.typeOptions?.options) {
                     return (
                         <NSpace size='small' justify='center'>{
-                            unref(field.typeOptions.options).map((item: any) => {
-                                if (field.typeOptions.multiple && data[field.field] && data[field.field].length) {
+                            unref(field?.typeOptions?.options).map((item: any) => {
+                                if (field?.typeOptions?.multiple && data[field.field] && data[field.field].length) {
                                     if (data[field.field].includes(item.value)) {
                                         return (
                                             <NTag round type={item.tagType ?? 'primary'} size='small'>{item.label}</NTag>
@@ -56,7 +56,7 @@ export function generateTableColumnRender(field: ITableColumn) {
                 return (
                     <NAvatar
                         round
-                        size={field.typeOptions.size}
+                        size={field?.typeOptions?.size}
                         src={data[field.field]}
                     />
                 )
@@ -76,16 +76,14 @@ export function generateTableColumnRender(field: ITableColumn) {
         case "tag":
             res = (data: any) => {
                 return (
-                    <NTag round type={field.typeOptions.type} size={field.typeOptions.size}>{data[field.field]}</NTag>
+                    <NTag round type={field?.typeOptions?.type} size={field?.typeOptions?.size}>{data[field.field]}</NTag>
                 )
             }
             break
         default:
             res = (data: any) => {
                 return (
-                    <div>
-                        <span>{data[field.field]}{field.suffix}</span>
-                    </div>
+                    <span>{data[field.field]}{field.suffix}</span>
                 )
             }
     }

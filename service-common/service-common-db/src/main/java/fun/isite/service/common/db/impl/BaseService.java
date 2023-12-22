@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  * @author Enigma
  */
 public class BaseService<M extends BaseMapper<T>, T extends BaseEntity<T>> extends ServiceImpl<M, T> implements IBaseService<T> {
-    public final static String[] BASE_ENTITY_FIELDS = {"id", "createdAt", "updatedAt", "deleted"};
+    public final static String[] BASE_ENTITY_FIELDS = {"id", "create_time", "update_time", "deleted"};
 
     public final static String LIMIT_ONE = "limit 1";
 
@@ -70,8 +70,8 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseEntity<T>> exten
     public PageVO<T> basicPage(SplitPageDTO dto, SFunction<T, ?> orderByField, CustomBasicPageQuery<T> customQuery) {
         QueryWrapper<T> wrapper = new QueryWrapper<>();
         wrapper.like(dto.getId() != null, "id", dto.getId());
-        wrapper.ge(StrUtil.isNotBlank(dto.getCreatedAt()), "created_at", dto.getCreatedAt());
-        wrapper.ge(StrUtil.isNotBlank(dto.getUpdatedAt()), "updated_at", dto.getUpdatedAt());
+        wrapper.ge(StrUtil.isNotBlank(dto.getCreateTime()), "create_time", dto.getCreateTime());
+        wrapper.ge(StrUtil.isNotBlank(dto.getUpdateTime()), "update_time", dto.getUpdateTime());
         LambdaQueryWrapper<T> lambdaQueryWrapper = wrapper.lambda();
         lambdaQueryWrapper.orderBy(orderByField != null, dto.isAsc(), orderByField);
         if (customQuery != null) {
@@ -88,8 +88,8 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseEntity<T>> exten
     public void resetBaseField(T t) {
         if (t != null) {
             t.setId(null);
-            t.setCreatedAt(null);
-            t.setUpdatedAt(null);
+            t.setCreateTime(null);
+            t.setUpdateTime(null);
             t.setDeleted((short) 0);
         }
     }
@@ -209,8 +209,8 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseEntity<T>> exten
 
 
     @Override
-    public T getLastByCreatedAt(@Nullable CustomBasicPageQuery<T> customQuery) {
-        LambdaQueryWrapper<T> wrapper = new LambdaQueryWrapper<>(getEntityClass()).orderByDesc(T::getCreatedAt);
+    public T getLastByCreateTime(@Nullable CustomBasicPageQuery<T> customQuery) {
+        LambdaQueryWrapper<T> wrapper = new LambdaQueryWrapper<>(getEntityClass()).orderByDesc(T::getCreateTime);
         if (customQuery != null) {
             customQuery.query(wrapper);
         }

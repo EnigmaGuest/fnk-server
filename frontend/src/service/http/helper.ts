@@ -13,6 +13,8 @@ export  function handleResult<T = any>(error: Service.RequestError | null, data:
             error,
             data: null
         };
+        // @ts-ignore
+        window.$message.error(error.msg);
         return fail;
     }
     const success: Service.SuccessResult<T> = {
@@ -30,13 +32,11 @@ export  function handleResult<T = any>(error: Service.RequestError | null, data:
 export function handelAxiosError(error: AxiosError) {
     const {status} = error.response;
     const requestError: Service.RequestError = {
-        type: 'axios',
-        code: status,
+        type: 'http',
+        code: status??'error',
         msg: ERROR_STATUS[status] || '未知错误'
     };
-    // @ts-ignore
-    window.$message.error(requestError.msg);
-    return requestError;
+    return handleResult(requestError,null);
 }
 
 export function handelBackendError(result :Record<string, any>,config:Service.ResultConfig) {
@@ -46,7 +46,5 @@ export function handelBackendError(result :Record<string, any>,config:Service.Re
         code: result[codeKey],
         msg: result[msgKey] || '未知错误'
     };
-    // @ts-ignore
-    window.$message.error(requestError.msg);
     return handleResult(requestError,null);
 }

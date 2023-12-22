@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>service-core-basic</module>
+        <module>service-core-system</module>
     </modules>
 
 
