@@ -5,26 +5,15 @@ const router: PageRoute =
     {
         name: 'home',
         path: '/home',
-        redirect: '/home/index',
         meta: {
             title: '首页',
-            icon: 'icon-park:workbench',
+            icon: 'line-md:home-md-twotone-alt',
+            affix: true,
             keepAlive: true,
         },
-        component: () => basicLayout(),
-        children: [
-            {
-                name: 'home_index',
-                path: '/home/index',
-                meta: {
-                    title: '首页',
-                    icon: 'line-md:cloud-tags-loop',
-                    affix: true,
-                    keepAlive: true,
-                },
-                component: () => import('@/views/home/index.vue'),
-            },
-        ]
+        isSingle: true,
+        type: 'basic',
+        component: () => import('@/views/home/index.vue')
     }
 
 export default router;

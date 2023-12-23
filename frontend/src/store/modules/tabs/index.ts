@@ -2,6 +2,7 @@ import {PageRoute} from "@/typings/route";
 import {defineStore} from "pinia";
 import {constantRoutes} from "@/router/common";
 import {SecureStorage} from "@/store/plugins";
+import {RouteRecordRaw} from "vue-router";
 
 
 export const useTabsStore = defineStore({
@@ -15,10 +16,10 @@ export const useTabsStore = defineStore({
         // 添加标签页
         addTab(route: PageRoute) {
             // 排除固定路由
-            if (constantRoutes.some((item: PageRoute) => {
+            if (constantRoutes.some((item: RouteRecordRaw) => {
                 if (item.name == route.name) return true;
                 // 递归子路由
-                if (item.children?.some((child: PageRoute) => child.name == route.name)) return true;
+                if (item.children?.some((child: RouteRecordRaw) => child.name == route.name)) return true;
             })) return;
             const isExists = this.tabList.some((item: PageRoute) => item.name == route.name);
             if (!isExists) {

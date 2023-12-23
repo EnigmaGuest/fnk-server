@@ -35,10 +35,10 @@ const props = defineProps({
     default: 'vertical',
   }
 })
-// 菜单点击 todo iframe 内部网页
+// 菜单点击
 const clickMenuItem = (key: string, item: System.GlobalMenu) => {
   if(router.currentRoute.value.name !== key){
-    router.push({name: key})
+    router.push({path: item.routePath})
   }
 }
 // 菜单展开
@@ -69,7 +69,6 @@ watch(
     () => route.name,
     () => {
       expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, menuOptions);
-
     },
     { immediate: true }
 );

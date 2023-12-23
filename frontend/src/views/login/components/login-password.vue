@@ -46,17 +46,17 @@ const handleSubmit = async () => {
     loading.value = false
   }
   if (validate) {
-    const {data,error} =  await loginAdmin(formValue)
+    const {data, error} = await loginAdmin(formValue)
     if (!error) {
-      let flog =  await ua.loginByToken(data.tokenValue)
-     if (flog) {
-       goHome()
-      }else {
-       // @ts-ignore
-       window.$message?.error("用户信息获取失败")
+      let flog = await ua.loginByToken(data.tokenValue)
+      if (flog) {
+        goHome()
+      } else {
+        // @ts-ignore
+        window.$message?.error("用户信息获取失败")
         loading.value = false
-     }
-    }else {
+      }
+    } else {
       loading.value = false
     }
   }
@@ -68,7 +68,7 @@ function goHome() {
   if (query?.redirect) {
     router.push({path: query.redirect as string})
   } else {
-    router.push({name: 'home_index'})
+    router.push({name: 'home'})
   }
 }
 

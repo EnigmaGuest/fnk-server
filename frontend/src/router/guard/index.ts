@@ -1,6 +1,5 @@
 import {Router} from "vue-router";
 import {PageRoute} from "@/typings/route";
-import {routeModuleList, router} from "@/router";
 import {useRouteStore} from "@/store/modules/route";
 import {createDynamicRouteGuard} from "@/router/guard/dynamic";
 import {useAuthStore} from "@/store";

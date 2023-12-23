@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import {SecureStorage} from "@/store/plugins";
 import {useRouteStore} from "@/store/modules/route";
 import {getAdminInfo} from "@/service/api/account";
+import {useTabsStore} from "@/store";
 
 
 interface AuthState {
@@ -10,6 +11,7 @@ interface AuthState {
     /** 用户token */
     token: string;
 }
+
 
 
 export const useAuthStore = defineStore({
@@ -22,6 +24,12 @@ export const useAuthStore = defineStore({
         /** 是否登录 */
         isLogin(state) {
             return Boolean(state?.token);
+        },
+        getAuthRouterName(state) {
+            return state.userInfo?.menus?.map((item: any) => item.routeKey)
+        },
+        getMenus(state) {
+            return state.userInfo?.menus
         }
     },
     actions: {
@@ -31,10 +39,21 @@ export const useAuthStore = defineStore({
         },
         async loginByToken(token: string) {
             this.token = token
+            // 查询用户信息
             const {data} = await getAdminInfo()
             this.userInfo = data
+            const ut = useRouteStore()
+            // 加载路由
+            await ut.initRoute()
             return data != null
-            // 查询用户信息
+        },
+        /**
+         * 退出登录
+         */
+        loginOut() {
+            this.$reset();
+            useRouteStore().resetRouteStore()
+            useTabsStore().$reset()
         }
     },
     persist: {

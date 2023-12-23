@@ -1,7 +1,7 @@
 <template>
   <n-drawer v-model:show="visible" @after-enter="onAfterEnter" @after-leave="onAfterLeave" :width="props.width" >
     <n-drawer-content :title="`${title}菜单`">
-      <BaseForm label-width="120px" label-align="right" ref="formRef" v-model:data="formData" :items="filedItems" :grid-props="{cols:1}" @submit="onSubmit" >
+      <BaseForm label-width="140px" label-align="right" ref="formRef" v-model:data="formData" :items="filedItems" :grid-props="{cols:1}" @submit="onSubmit" >
         <template #rootId="{model,field,item}">
           <menu-select v-model:value="model[field]" :options="item?.filedOptions?.options"   />
         </template>
@@ -44,9 +44,9 @@ const filedItems = computed(()=>{
     case "TABLE":
       break;
     case "MENU":
-      dynamicItems.push({field: 'url', label: '请求URL',labelMessage:"route路径或者地址", filedType:'string',isSearch: false,required:true})
+      dynamicItems.push({field: 'path', label: '路径或者地址',labelMessage:"非网页为路径：同对应的后端项目中的routerPath。网页模式则为网址。", filedType:'string',isSearch: false,required:true})
       dynamicItems.push({field: 'permission', label: '权限标识', labelMessage:"controller中定义的权限标识",filedType:'string',isSearch: false,required:true})
-      dynamicItems.push({field: 'isBlank', label: '是否新开页面', filedType:'switch',isSearch: false,required:true})
+      dynamicItems.push({field: 'isIframe', label: '是否为网页', filedType:'switch',isSearch: false,required:true})
       dynamicItems.push({field: 'remark', label: '备注', filedType:'string',isSearch: false,required:false})
       break;
     case "BUTTON":

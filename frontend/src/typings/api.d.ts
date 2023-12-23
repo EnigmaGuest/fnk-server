@@ -19,13 +19,15 @@ interface IMenus {
     id: string;
     rootId: string;
     name: string;
+    routeKey: string;
     orderSort: number;
-    url: string;
+    path: string;
     icon: string;
+    localIcon: string;
     visible: boolean;
     permission: string;
-    type: number;
-    isBlank: boolean;
+    type: string;
+    isIframe: boolean;
     children: IMenus[];
 }
 interface AdminUserVO{

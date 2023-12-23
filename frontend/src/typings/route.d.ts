@@ -4,11 +4,11 @@ import {RouteComponent, RouteMeta, RouteRecordRaw} from "vue-router";
  *   路由的组件
  * - basic - 基础布局，具有公共部分的布局
  * - blank - 空白布局
- * - multi - 多级路由布局(三级路由或三级以上时，除第一级路由和最后一级路由，其余的采用该布局) 未用到哈
- * - self - 作为子路由，使用自身的布局(作为最后一级路由，没有子路由) 未用到哈
+ * - multi - 多级路由布局(三级路由或三级以上时，除第一级路由和最后一级路由，其余的采用该布局) 暂时未用到
+ * - self - 作为子路由，使用自身的布局(作为最后一级路由，没有子路由) 暂时未用到
  * - iframe - 内嵌页面 href不能为空 () => import('vue').VNodeChild
  */
-type RouteComponentType = 'iframe' | 'basic' | 'blank' | RouteComponent  ;
+type LayoutComponentType = 'iframe' | 'basic' | 'blank' | 'self'  ;
 
 interface PageRoute {
     /** 路由名称(路由唯一标识) */
@@ -21,11 +21,18 @@ interface PageRoute {
      *   路由的组件
      * - basic - 基础布局，具有公共部分的布局
      * - blank - 空白布局
-     * - multi - 多级路由布局(三级路由或三级以上时，除第一级路由和最后一级路由，其余的采用该布局)
-     * - self - 作为子路由，使用自身的布局(作为最后一级路由，没有子路由)
+     * - self - 仅出现在子路由！使用自身的布局！！
      * - iframe - 内嵌页面 url不能为空
      */
-    component?: RouteComponentType;
+    type:LayoutComponentType;
+    /** 是否为单个路由(单个路由不存在children) */
+    isSingle?: boolean;
+    /**
+     * type = self 有效
+     * string：进行匹配根据path
+     * RouteComponent
+     */
+    component?: RouteComponent;
     /** 路由描述 */
     meta: IRouteMeta;
     /** 子路由 */

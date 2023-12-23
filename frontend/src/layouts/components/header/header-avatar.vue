@@ -7,14 +7,14 @@
 </template>
 <script setup lang="ts">
 import localAvatarUrl from  "@/assets/images/linki.png"
-import {useAuthStore} from "@/store";
+import {useAuthStore, useRouteStore} from "@/store";
 import {System} from "@/typings/system";
 import {renderIcon} from "@/utils";
 import {useDialog} from "naive-ui";
-import {goHome} from "@/router";
 import {useRouter} from "vue-router";
 import {inject} from "vue";
 const ua = useAuthStore()
+const ut = useRouteStore()
 const avatarUrl = ua.userInfo?.avatar || localAvatarUrl
 // 个人中心 系统设置 退出登录
 const options:System.GlobalDropdown[] = [
@@ -50,7 +50,7 @@ const handleSelect = (key: string) => {
         positiveText: '确定',
         negativeText: '取消',
         onPositiveClick: () => {
-          ua.resetAuthStore()
+          ua.loginOut()
           router.push({name: 'login'})
         }
       })

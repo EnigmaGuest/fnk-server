@@ -1,9 +1,10 @@
 import {PageRoute} from "@/typings/route";
+import {RouteRecordRaw} from "vue-router";
 
 const {VITE_ROUTE_HOME_PATH} = import.meta.env;
 
 /** 根路由 */
-export const ROOT_ROUTE: PageRoute = {
+export const ROOT_ROUTE: RouteRecordRaw = {
     name: 'root',
     path: '/',
     redirect: VITE_ROUTE_HOME_PATH,
@@ -16,7 +17,7 @@ export  const blankLayout = () => import('@/layouts/blank.vue')
 export  const iframeLayout = () => import('@/layouts/iframe.vue')
 
 /** 固定的路由 */
-export const constantRoutes: PageRoute[] = [
+export const constantRoutes: RouteRecordRaw[] = [
     ROOT_ROUTE,
     {
         name: 'login',

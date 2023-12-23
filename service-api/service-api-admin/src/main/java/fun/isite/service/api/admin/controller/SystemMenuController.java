@@ -34,7 +34,7 @@ public class SystemMenuController extends BaseController {
         log.info("params: {}", params);
         LambdaQueryWrapper<SystemMenu> wrapper  = new LambdaQueryWrapper<>();
         wrapper.like(params.getName()!=null, SystemMenu::getName, params.getName());
-        wrapper.eq(params.getVisible()!=null, SystemMenu::getUrl, params.getUrl());
+        wrapper.eq(params.getPermission()!=null, SystemMenu::getPermission, params.getPermission());
         wrapper.orderByAsc(SystemMenu::getOrderSort);
         return RestResponse.ok(this.service.list(wrapper));
     }

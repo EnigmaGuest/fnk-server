@@ -11,11 +11,12 @@ const router: PageRoute =
             icon: 'tdesign:system-setting',
             keepAlive: true,
         },
-        component: () => basicLayout(),
+        type: 'basic',
         children: [
             {
                 name: 'system_user',
                 path: '/system/user',
+                type: 'self',
                 meta: {
                     title: '用户管理',
                     icon: 'line-md:person-search-twotone',
@@ -26,6 +27,7 @@ const router: PageRoute =
             {
                 name: 'system_menu',
                 path: '/system/menu',
+                type: 'self',
                 meta: {
                     title: '菜单管理',
                     icon: 'line-md:list-3-filled',
@@ -36,6 +38,7 @@ const router: PageRoute =
             {
                 name: 'system_role',
                 path: '/system/role',
+                type: 'self',
                 meta: {
                     title: '角色管理',
                     icon: 'mingcute:safety-certificate-fill',

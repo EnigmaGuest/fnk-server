@@ -1,6 +1,6 @@
 <template>
   <app-container>
-    <div class="h-200">{{ JSON.stringify(us.userInfo) }}</div>
+    <div class="h-200">{{ JSON.stringify(us.userInfo.menus) }}</div>
     <eg-icon local-icon="logo" class="text-xl"/>
     <eg-icon icon="material-symbols:3g-mobiledata-sharp" class="text-xl"/>
     <n-space >
@@ -15,13 +15,13 @@ import {useAuthStore} from "@/store";
 import {useRouter} from "vue-router";
 import {reactive} from "vue";
 import {login} from "@/service";
+import {groupDynamicMenu} from "@/utils";
 
 const us = useAuthStore()
 const router = useRouter()
 const state = reactive({
   name: 'home'
 })
-
 async function goNotFund() {
   const data =  await login({phone:"admin",password:"admin"})  // 测试接口
   console.log(data)

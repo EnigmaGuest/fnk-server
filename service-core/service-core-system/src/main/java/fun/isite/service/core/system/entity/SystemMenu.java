@@ -24,62 +24,74 @@ import lombok.NoArgsConstructor;
 public class SystemMenu extends BaseEntity<SystemMenu> {
 
     /**
-    * 上级ID
-    */
+     * 上级ID
+     */
     @Schema(description="上级ID")
     private String rootId;
 
     /**
-    * 菜单名称
-    */
+     * 菜单名称
+     */
     @Schema(description="菜单名称")
     private String name;
 
     /**
-    * 显示顺序
-    */
+     * 路由key全局唯一
+     */
+    @Schema(description="路由key全局唯一")
+    private String routeKey;
+
+    /**
+     * 显示顺序
+     */
     @Schema(description="显示顺序")
     private Integer orderSort;
 
     /**
-    * 请求URL
-    */
-    @Schema(description="请求URL")
-    private String url;
+     * 是否为网页
+     */
+    @Schema(description="是否为网页")
+    private Boolean isIframe;
 
     /**
-    * 菜单icon
-    */
-    @Schema(description="菜单icon")
+     * 请求路径
+     */
+    @Schema(description="请求路径")
+    private String path;
+
+    /**
+     * icones
+     */
+    @Schema(description="icones")
     private String icon;
 
     /**
-    * 是否显示
-    */
+     * 本地icon
+     */
+    @Schema(description="本地icon")
+    private String localIcon;
+
+    /**
+     * 是否显示
+     */
     @Schema(description="是否显示")
     private Boolean visible;
 
     /**
-    * 权限标识
-    */
+     * 权限标识
+     */
     @Schema(description="权限标识")
     private String permission;
 
     /**
-    * 是否新开页面
-    */
-    @Schema(description="是否新开页面")
-    private Boolean isBlank;
-
-    /**
-    * 菜单类型（table目录 menu菜单 button按钮）
-    */
+     * 菜单类型（table目录 menu菜单 button按钮）
+     */
     @Schema(description="菜单类型（table目录 menu菜单 button按钮）")
     private MenuTypeEnum type;
 
     /**
-    * 备注
-    */
+     * 备注
+     */
     @Schema(description="备注")
     private String remark;
 

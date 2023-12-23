@@ -17,7 +17,7 @@ import {ITableColumn} from "@/components/basic/table/index";
 import MenuDrawer from "@/views/system/menu/menu-drawer.vue";
 import {deleteSystemMenu, queryAllSystemMenu} from "@/service/api/system";
 import {NButton} from 'naive-ui'
-import {groupMenuItems} from "@/utils";
+import {groupDynamicMenu} from "@/utils";
 
 
 const formRef = ref()
@@ -48,20 +48,25 @@ const formFiledList = computed(() => [
     }
   },
   {field: 'name', label: '菜单名称', filedType: 'string', isSearch: true, required: true},
+  {field: 'routeKey', label: '路由key', filedType:'string',isSearch: false,required:true,labelMessage:"同对应的后端项目中的routerName"},
   {field: 'type', label: '菜单类型', filedType: 'select', required: true, filedOptions: {options: menuTypeOptions.value},},
   {field: 'orderSort', label: '显示顺序', filedType: 'number', isSearch: false, required: true},
   {field: 'icon', label: '菜单icon', filedType: 'string', isSearch: false, required: false, labelMessage: "icones中的icon名称"},
+  {field: 'localIcon', label: '本地icon', filedType:'string',isSearch: false,required:false, labelMessage: "本地图标名称，优先级高于菜单icon"},
   {field: 'visible', label: '是否显示', filedType: 'switch', isSearch: true, required: true},
 ] as BaseFormItemProps[])
 
 
 const columns: Array<ITableColumn> = [
-  {field: 'id', title: 'id', type: 'string', labelWidth: 120},
+  {field: 'id', title: 'id', type: 'string', labelWidth: 140},
   // {field: 'rootId', title: '上级ID', type: 'string',labelWidth:120},
   {field: 'name', title: '菜单名称', type: 'string'},
+  {field: 'routeKey', title: '路由key', type:'string'},
+  {field: 'isIframe', title: '是否为网页', type:'switch'},
+  {field: 'path', title: '路径地址', type:'string'},
+  {field: 'icon', title: 'icones图标 ', type:'string'},
+  {field: 'localIcon', title: '本地图标', type:'string'},
   {field: 'orderSort', title: '显示顺序', type: 'string'},
-  {field: 'url', title: '请求URL', type: 'string'},
-  {field: 'icon', title: '菜单icon', type: 'string'},
   {field: 'visible', title: '是否显示', type: 'switch'},
   {field: 'permission', title: '权限标识', type: 'string'},
   {field: 'isBlank', title: '是否新开页面', type: 'switch'},
@@ -91,6 +96,7 @@ const rowAction = (row: any, rowIndex: number) => {
 
 function onAdd() {
   pageState.drawerVisible = true
+  pageState.isUpdate = false
 }
 
 function onEdit(row: any) {
@@ -111,7 +117,7 @@ async function onGetData(params?: any) {
   const {data, error} = await queryAllSystemMenu(params)
   if (!error) {
     tableData.value = data
-    tableData.value = groupMenuItems(data)
+    tableData.value = groupDynamicMenu(data)
   }
   pageState.loading = false
 }

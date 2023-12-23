@@ -18,7 +18,7 @@
                 <div class="h-32px flex items-center justify-center">
                   <span class="lh-14px text-14px "
                         :class="{'text-primary':state.activeTag==element.name}">{{ element.meta.title }}</span>
-                  <icon-line-md:close class="text-14px ml-2px mr--6px  text-#999" v-if="!element.meta?.affix"
+                  <icon-line-md:close class="text-14px ml-2px mr--6px  text-#999" v-if="isClose(element)"
                                       @click.stop="onCloseTabs(element)"/>
                 </div>
               </div>
@@ -77,6 +77,7 @@ const route2PageRoute = (route: any): PageRoute => {
     name: route.name,
     path: route.path,
     meta: route.meta,
+    type:"self"
   }
 }
 const onDropdownClick = (key: ExpandKey) => {
@@ -97,8 +98,16 @@ const onDropdownClick = (key: ExpandKey) => {
   updateTabsScroll()
   state.showDropdown = false
 }
+const isClose = (item: PageRoute) => {
+  if (item.meta?.affix) {
+    return false
+  }
+  const {VITE_ROUTE_HOME_PATH} = import.meta.env
+  return item.path !== VITE_ROUTE_HOME_PATH;
+
+}
 const tabsMenuOptions = computed(() => {
-  const isDisabled = tabsList.value.length <= 1
+  const isDisabled = tabsList.value.length == 1
   let isRefresh = false
   if (activePage.value){
     isRefresh = activePage.value?.name != route.name
