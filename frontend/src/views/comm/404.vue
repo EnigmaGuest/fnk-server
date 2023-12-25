@@ -1,8 +1,8 @@
 <template>
- <div>
-   <div>404</div>
-   <n-button type="primary" @click="goHome">去首页</n-button>
- </div>
+
+  <app-container>
+   <exception-base type="403" />
+  </app-container>
 </template>
 <script setup lang="ts">
 

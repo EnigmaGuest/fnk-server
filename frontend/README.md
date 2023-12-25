@@ -7,7 +7,8 @@
 - 使用naive-ui组件库管理
 - 使用vue-router进行路由管理
 - 使用pinia进行状态管理,且实现加密持久化
-- svg图标使用[Iconify](https://icones.js.org/collection/all)进行管理
+- 图标使用iconify进行管理
+- svg图标使用[icones](https://icones.js.org/collection/all)进行管理
 - 可显示本地svg图标且可动态修改颜色
 - 动态标签页可左右拖动以及右键菜单
 - 自定义主题
