@@ -46,3 +46,4 @@ target/
 /service-code-generate/src/main/resources/generate-template-dev.yml
 /service-core/service-core-basic/src/main/resources/application-core-basic-prod.yml
 /prod/
+/dev/
