@@ -42,10 +42,11 @@ const filedItems = computed(()=>{
   const dynamicItems = []
   switch (formData.value?.type){
     case "TABLE":
+      dynamicItems.push({field: 'remark', label: '备注', filedType:'string',isSearch: false,required:false})
       break;
     case "MENU":
       dynamicItems.push({field: 'path', label: '路径或者地址',labelMessage:"非网页为路径：同对应的后端项目中的routerPath。网页模式则为网址。", filedType:'string',isSearch: false,required:true})
-      dynamicItems.push({field: 'permission', label: '权限标识', labelMessage:"controller中定义的权限标识",filedType:'string',isSearch: false,required:true})
+      dynamicItems.push({field: 'permission', label: '权限标识', labelMessage:"controller中定义的权限标识",filedType:'string',isSearch: false,required:false})
       dynamicItems.push({field: 'isIframe', label: '是否为网页', filedType:'switch',isSearch: false,required:true})
       dynamicItems.push({field: 'remark', label: '备注', filedType:'string',isSearch: false,required:false})
       break;
@@ -75,6 +76,11 @@ const title = computed(()=>{
 
 async function onSubmit(valid: boolean) {
   if (valid) {
+    if (formData.value?.type === "TABLE" || formData.value?.type === "BUTTON") {
+      formData.value.path = ""
+      formData.value.permission = ""
+      formData.value.isIframe = false
+    }
     const {data,error} = await saveOrUpdateSystemMenu(formData.value,props.isUpdate)
     if (!error) {
       // @ts-ignore
@@ -93,7 +99,7 @@ function onAfterEnter(){
   }else {
     formData.value = {
       visible: true,
-      isBlank: false,
+      isIframe: false,
       type: "TABLE",
       rootId: '0',
       ...props?.data

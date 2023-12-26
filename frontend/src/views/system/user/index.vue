@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseTable :columns="columns" :data="pageState.tableData" :get-data="onGetData" :search-form-items="formFiledList"
+    <BaseTable :columns="columns" :loading="pageState.loading" :data="pageState.tableData" :get-data="onGetData" :search-form-items="formFiledList"
                is-add-action title="系统用户" desc="系统用户" @add="onAdd" @edit="onEdit" @delete="onDelete"/>
     <user-drawer v-model:show="pageState.drawerVisible" :is-update="pageState.isUpdate" :data="pageState.editData"
                  @success="onGetData"

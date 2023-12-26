@@ -27,7 +27,7 @@ spring:
           min-idle: 5
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/eg-service?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/fnk-service?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: Weile220320.
   cache:
@@ -67,7 +67,7 @@ service:
   port:
     admin: 12345
   api-version: 1
-  version: @eg-service.version@
+  version: @fnk-service.version@
 
 springdoc:
   swagger-ui:

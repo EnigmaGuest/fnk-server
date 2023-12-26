@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>fun.isite.service</groupId>
-    <artifactId>eg-service</artifactId>
+    <artifactId>fnk-service</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>eg-service</name>
+    <name>fnk-service</name>
 
     <modules>
         <module>service-api</module>
@@ -40,7 +40,7 @@
         <com.google.zxing.version>3.3.3</com.google.zxing.version>
         <knife4j.version>4.4.0</knife4j.version>
         <jackson.version>2.13.2</jackson.version>
-        <eg-service.version>1.0.0</eg-service.version>
+        <fnk-service.version>1.0.0</fnk-service.version>
         <springdoc.version>2.3.0</springdoc.version>
     </properties>
 
@@ -135,53 +135,53 @@
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-api</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-common</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-core</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-common-bean</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-common-db</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-common-tools</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-core-basic</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-code-generate</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-api-admin</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>fun.isite.service</groupId>
                 <artifactId>service-core-system</artifactId>
-                <version>${eg-service.version}</version>
+                <version>${fnk-service.version}</version>
             </dependency>
             <!--    service - dep end    -->
         </dependencies>

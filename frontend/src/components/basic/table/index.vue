@@ -46,6 +46,13 @@
       </div>
       <n-data-table :columns="tableColumns" :row-key="(rowData:any)=>rowData[props.rowKey]" :data="tableData" :loading="props.loading" striped :pagination="pagination"
                     :max-height="tableHeight" :scroll-x="tableHeight" @update:page-size="onPageSizeChange" @update:page="onPageChange">
+        <template #empty>
+         <div class="flex-col-center">
+           <icon-local-empty class="text-400px text-primary"></icon-local-empty>
+           <p class="text-20px text-primary" v-if="!props.emptyText">无{{props.title}}数据~</p>
+           <p class="text-20px text-primary" v-else>{{props.emptyText}}</p>
+         </div>
+        </template>
       </n-data-table>
     </n-card>
   </div>
@@ -129,6 +136,15 @@ const props = defineProps({
   isSelect:{
     type:Boolean,
     default:false
+  },
+  emptyText:{
+    type:String,
+    default:null
+  },
+  // 未使用
+  loadingText:{
+    type:String,
+    default:null
   }
 })
 

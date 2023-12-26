@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseTable :columns="columns" :data="pageState.tableData" :get-data="onGetData" :search-form-items="formFiledList"
+    <BaseTable :columns="columns" :loading="pageState.loading" :data="pageState.tableData" :get-data="onGetData" :search-form-items="formFiledList"
                is-add-action @delete="onDelete"
                title="角色信息" desc="角色信息" @add="onAdd" @edit="onEdit"/>
 

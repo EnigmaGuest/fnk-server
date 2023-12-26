@@ -1,9 +1,14 @@
 <template>
   <div class="flex-col-center wh-full">
-    <icon-local-404 class="text-400px text-primary"  v-if="props.type==='404'"/>
-    <icon-local-403 class="text-400px text-primary"  v-if="props.type==='403'"/>
-    <icon-local-500 class="text-400px text-primary"  v-if="props.type==='500'"/>
-    <n-button type="primary" class="mt-12px" @click="backHome" size="large">返回首页</n-button>
+    <icon-local-404 class="text-400px text-primary" v-if="props.type==='404'"/>
+    <icon-local-403 class="text-400px text-primary" v-if="props.type==='403'"/>
+    <icon-local-500 class="text-400px text-primary" v-if="props.type==='500'"/>
+    <n-button type="primary" class="mt-24px" @click="backHome">
+      <template #icon>
+        <icon-line-md:telegram/>
+      </template>
+      返回首页
+    </n-button>
   </div>
 </template>
 <script setup lang="ts">
@@ -20,11 +25,14 @@ const props = defineProps({
   }
 })
 
+const emits = defineEmits(['click'])
 
 const router = useRouter()
-function backHome(){
- const {VITE_ROUTE_HOME_PATH} = import.meta.env
+
+function backHome() {
+  const {VITE_ROUTE_HOME_PATH} = import.meta.env
   router.push({path: VITE_ROUTE_HOME_PATH})
+  emits('click')
 }
 </script>
 

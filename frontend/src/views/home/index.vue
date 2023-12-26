@@ -1,29 +1,47 @@
 <template>
-  <app-container>
-    <div class="h-200">{{ JSON.stringify(us.userInfo.menus) }}</div>
-    <eg-icon local-icon="logo" class="text-xl"/>
-    <eg-icon icon="material-symbols:3g-mobiledata-sharp" class="text-xl"/>
-    <n-space >
-      <n-input v-model:value="state.name" />
-    </n-space>
-    <div><n-button type="primary" @click="goNotFund">去404</n-button></div>
+  <app-container transparent>
+    <n-card :bordered="false">
+      <n-space justify="space-between" align="center">
+        <n-space align="center">
+          <n-avatar :src="avatarUrl" round size="large"></n-avatar>
+          <div class="flex-col">
+            <p class="text-18px font-semibold"> {{ us.userInfo.username }}</p>
+            <p class="text-14px">欢迎，海拉鲁最强骑士：{{ us.userInfo.username }}，请问，今天去教育人马讨伐了吗？</p>
+          </div>
+        </n-space>
+        <n-space>
+          <n-statistic label="树根" tabular-nums value="115/120"></n-statistic>
+          <n-statistic label="呀哈哈" tabular-nums value="61/1000"></n-statistic>
+          <n-statistic label="神庙" tabular-nums value="67/152"></n-statistic>
+        </n-space>
+      </n-space>
+    </n-card>
+    <n-grid :item-responsive="true" :x-gap="16" :y-gap="16">
+      <n-grid-item span="0:24 640:24 1024:16">
+        <technology-main/>
+      </n-grid-item>
+      <n-grid-item span="0:24 640:24 1024:8">
+        <quick-card />
+      </n-grid-item>
+    </n-grid>
+    <div>
+      <dynamic-info />
+    </div>
+
   </app-container>
 </template>
 <script setup lang="ts">
 
 import {useAuthStore} from "@/store";
-import {useRouter} from "vue-router";
-import {reactive} from "vue";
 import {login} from "@/service";
-import {groupDynamicMenu} from "@/utils";
+import avatarUrl from "@/assets/images/linki.png"
+import TechnologyMain from "@/views/home/components/technology-main.vue";
+import QuickCard from "@/views/home/components/quick-card.vue";
+import DynamicInfo from "@/views/home/components/dynamic-info.vue";
 
 const us = useAuthStore()
-const router = useRouter()
-const state = reactive({
-  name: 'home'
-})
 async function goNotFund() {
-  const data =  await login({phone:"admin",password:"admin"})  // 测试接口
+  const data = await login({phone: "admin", password: "admin"})  // 测试接口
   console.log(data)
 }
 </script>

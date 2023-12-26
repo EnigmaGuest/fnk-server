@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 50744 (5.7.44)
  Source Host           : localhost:3306
- Source Schema         : eg-service
+ Source Schema         : fnk-service
 
  Target Server Type    : MySQL
  Target Server Version : 50744 (5.7.44)

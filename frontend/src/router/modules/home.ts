@@ -7,7 +7,8 @@ const router: PageRoute =
         path: '/home',
         meta: {
             title: '首页',
-            icon: 'line-md:home-md-twotone-alt',
+            icon: 'line-md:computer',
+            order:1,
             affix: true,
             keepAlive: true,
         },

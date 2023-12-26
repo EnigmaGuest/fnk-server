@@ -8,7 +8,8 @@ const router: PageRoute =
         redirect: '/system/user',
         meta: {
             title: '系统管理',
-            icon: 'tdesign:system-setting',
+            icon: 'line-md:cog',
+            order:2,
             keepAlive: true,
         },
         type: 'basic',
@@ -41,7 +42,7 @@ const router: PageRoute =
                 type: 'self',
                 meta: {
                     title: '角色管理',
-                    icon: 'mingcute:safety-certificate-fill',
+                    icon: 'line-md:document-list',
                     keepAlive: true,
                 },
                 component: () => import('@/views/system/role/index.vue'),

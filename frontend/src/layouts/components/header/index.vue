@@ -4,18 +4,20 @@
     <div class="page-header-left" v-if="false">
       <page-menu :mode="'horizontal'"/>
     </div>
-    <n-space align="center"  v-else>
+    <n-space align="center" v-else>
       <!--  菜单收起  todo 可以配置 显示其他的  -->
-      <header-menu-collapse :collapsed="props.collapsed" @click="(e:boolean)=>{ emits('update:collapsed',e) }" v-if="true" />
+      <header-menu-collapse :collapsed="props.collapsed" @click="(e:boolean)=>{ emits('update:collapsed',e) }"
+                            v-if="true"/>
       <div class="h-full flex-center" v-else>
         <n-button round secondary type="primary">常用</n-button>
       </div>
       <!--   面包屑   -->
-      <header-breadcrumb  />
+      <header-breadcrumb/>
     </n-space>
-    <n-space align="center" >
+    <n-space align="center">
+      <header-github/>
       <header-theme/>
-      <n-divider vertical />
+      <n-divider vertical/>
       <header-avatar/>
     </n-space>
 
@@ -29,6 +31,8 @@ import HeaderAvatar from "@/layouts/components/header/header-avatar.vue";
 import HeaderTheme from "@/layouts/components/header/header-theme.vue";
 import {computed} from "vue";
 import {useThemeStore} from "@/store";
+import HeaderGithub from "@/layouts/components/header/header-github.vue";
+
 const props = defineProps({
   collapsed: {
     // 侧边栏菜单是否收起
@@ -39,8 +43,8 @@ const emits = defineEmits(['update:collapsed', 'clickMenuItem']);
 const theme = useThemeStore()
 const getHeaderStyle = computed(() => {
   return {
-    borderBottomLeftRadius: theme.headerRound+'px',
-    borderBottomRightRadius: theme.headerRound+'px',
+    borderBottomLeftRadius: theme.headerRound + 'px',
+    borderBottomRightRadius: theme.headerRound + 'px',
   }
 })
 </script>

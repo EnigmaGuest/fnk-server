@@ -8,6 +8,8 @@ import {RouteRecordRaw} from "vue-router";
  * @param authRouteKey 权限key 由后端返回 如果不传入则全部返回
  */
 export function staticPageRouteGenerateRoutes(pages: PageRoute[], authRouteKey: string[] = []) {
+    // 排序处理
+    pages.sort((a, b) => a.meta?.order - b.meta?.order)
     return pages.map(page => singlePageToRoute(page, authRouteKey)).flat()
 }
 

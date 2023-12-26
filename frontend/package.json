@@ -2,6 +2,7 @@
   "name": "admin-main",
   "private": true,
   "version": "0.0.1",
+  "license": "MIT",
   "description": "A simple and easy-to-use admin template project based on Vue3, Vite3, TypeScript, NaiveUI and UnoCSS.一个简单好用的管理模板项目，基于Vue3、Vite3、TypeScript、NaiveUI和UnoCSS。",
   "author": {
     "name": "Enigma",

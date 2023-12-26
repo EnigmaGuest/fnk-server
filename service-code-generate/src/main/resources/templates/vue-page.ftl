@@ -1,6 +1,6 @@
 <template>
     <div>
-        <BaseTable :columns="columns" :data="pageState.tableData" :get-data="onGetData"  :search-form-items="formFiledList" is-add-action title="${table.comment!}" desc="${table.comment!}" @add="onAdd" @edit="onEdit" @delete="onDelete"/>
+        <BaseTable :columns="columns" :loading="pageState.loading" :data="pageState.tableData" :get-data="onGetData"  :search-form-items="formFiledList" is-add-action title="${table.comment!}" desc="${table.comment!}" @add="onAdd" @edit="onEdit" @delete="onDelete"/>
         <entity-drawer v-model:show="pageState.drawerVisible" :is-update="pageState.isUpdate" :data="pageState.editData"
                      @success="onGetData"
                      :form-items="formFiledList"></entity-drawer>
