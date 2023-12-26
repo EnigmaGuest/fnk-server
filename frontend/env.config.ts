@@ -10,7 +10,7 @@ const serviceEnv: ServiceEnvConfig = {
         url: "http://localhost:12200"
     },
     prod: {
-        url: 'http://localhost:12200'
+        url: 'http://localhost:12345'
     }
 }
 

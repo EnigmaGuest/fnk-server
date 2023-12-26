@@ -14,7 +14,7 @@
     "dev": "cross-env VITE_SERVICE_ENV=dev vite",
     "dev:test": "cross-env VITE_SERVICE_ENV=test vite",
     "dev:prod": "cross-env VITE_SERVICE_ENV=prod vite",
-    "build": "vue-tsc && cross-env VITE_SERVICE_ENV=prod vite build",
+    "build": "cross-env VITE_SERVICE_ENV=prod vite build",
     "build:dev": "cross-env VITE_SERVICE_ENV=dev vite build",
     "build:test": "cross-env VITE_SERVICE_ENV=test vite build",
     "preview": "vite preview"

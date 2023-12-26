@@ -2,6 +2,8 @@ import axios, {AxiosInstance, AxiosRequestConfig} from "axios";
 import {REFRESH_LOGIN_CODE, RESULT_CONFIG, STYLE_CONFIG} from "@/config";
 import {useAuthStore} from "@/store";
 import {handelAxiosError, handelBackendError, handleResult} from "@/service/http/helper";
+import {useRouter} from "vue-router";
+import {usePageRouter} from "@/hooks";
 
 
 export default class CustomHttpInstance {
@@ -73,12 +75,17 @@ export default class CustomHttpInstance {
                 // 不是200的错误
                 return handelBackendError(resData, this.config);
             }
-        }, (error) => {
+        }, async (error) => {
             if (this.styleConfig.loadingBar) {
                 //@ts-ignore
                 window.$loadingBar?.error();
             }
             // todo 401 重新登录
+            if(REFRESH_LOGIN_CODE.includes(error.response?.status) ){
+                const router = usePageRouter(false);
+                router.toLogin()
+                return handleResult({code: 401, msg: '请重新登录',type:'backend' }, null);
+            }
             // 超出 2xx 范围的状态码都会触发该函数。
             // 对响应错误做点什么
             return handelAxiosError(error);
