@@ -42,4 +42,7 @@ target/
 /logging.*
 
 
+### 排除上线打包相关
 /service-code-generate/src/main/resources/generate-template-dev.yml
+/service-core/service-core-basic/src/main/resources/application-core-basic-prod.yml
+/prod/

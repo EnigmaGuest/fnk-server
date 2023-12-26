@@ -61,8 +61,8 @@ async function onSubmit(valid: boolean) {
       window.$message.success(title.value+`${data.username}成功`)
       emits("update:show", false)
       emits("success")
+      visible.value = false
     }
-    visible.value = false
   }
 }
 

@@ -49,7 +49,7 @@
             <id>dev</id>
             <properties>
                 <profile.active>dev</profile.active>
-                <output-dir>/Users/Enigma/WorkSpace/IdeaProjects/eg-admin/prod/output-dir</output-dir>
+                <output-dir>/Users/Enigma/WorkSpace/IdeaProjects/eg-service/dev/output-dir</output-dir>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -59,7 +59,7 @@
             <id>prod</id>
             <properties>
                 <profile.active>prod</profile.active>
-                <output-dir>/Users/Enigma/WorkSpace/IdeaProjects/eg-admin/dev/output-dir</output-dir>
+                <output-dir>/Users/Enigma/WorkSpace/IdeaProjects/eg-service/prod/output-dir</output-dir>
             </properties>
         </profile>
     </profiles>
@@ -206,6 +206,24 @@
 
     <build>
         <plugins>
+            <!--        打包配置    -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${output-dir}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

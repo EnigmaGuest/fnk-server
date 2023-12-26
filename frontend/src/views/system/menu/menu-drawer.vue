@@ -87,8 +87,9 @@ async function onSubmit(valid: boolean) {
       window.$message.success(`${props.isUpdate ? "编辑" : "新增"}${data?.name??''}成功`)
       emits("update:show",false)
       emits("success")
+      visible.value = false
     }
-    visible.value = false
+
   }
 }
 function onAfterEnter(){

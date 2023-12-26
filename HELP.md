@@ -11,6 +11,7 @@ found character '@' that cannot start any token. (Do not use @ for indentation)
       version: @fnk-service.version@
 
 # 解决方案
+一定要选Profiles中的dev或者自己配置的环境
 maven install 
 ```
 
