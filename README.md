@@ -77,7 +77,7 @@ pnpm run dev
 pnpm run build
 ```
 
-## QQ交流群
+## 问题沟通交流QQ交流群
 ![image](https://github.com/EnigmaGuest/fnk-server/assets/26734130/68f3c27e-c447-4a3b-b9c1-4f5d2dda8267)
 
 # Tips
