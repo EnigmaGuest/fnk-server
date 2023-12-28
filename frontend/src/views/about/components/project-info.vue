@@ -5,13 +5,13 @@
       <n-tag type="primary">{{ version }}</n-tag>
     </n-descriptions-item>
     <n-descriptions-item label="最后编译时间">
-      <n-tag type="primary">2023年12月25日17:36:05</n-tag>
+      <n-tag type="primary">2023年12月28日15:09:22</n-tag>
     </n-descriptions-item>
     <n-descriptions-item label="Github地址">
-      <a class="text-primary" href="https://github.com/honghuangdc/soybean-admin" target="_blank">Github地址</a>
+      <a class="text-primary" href="https://github.com/EnigmaGuest/fnk-server" target="_blank">Github地址</a>
     </n-descriptions-item>
     <n-descriptions-item label="预览地址">
-      <a class="text-primary" href="#" target="_blank">等待...</a>
+      <a class="text-primary" href="https://fnk-server.isite.fun" target="_blank">已部署</a>
     </n-descriptions-item>
   </n-descriptions>
 </n-card>

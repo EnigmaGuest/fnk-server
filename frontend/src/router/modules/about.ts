@@ -8,7 +8,7 @@ const router: PageRoute =
             title: '关于',
             icon: 'line-md:lightbulb-twotone',
             order:10,
-            affix: true,
+            affix: false,
             keepAlive: true,
         },
         isSingle: true,
