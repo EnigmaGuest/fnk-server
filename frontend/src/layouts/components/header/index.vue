@@ -14,12 +14,11 @@
       <!--   面包屑   -->
       <header-breadcrumb/>
     </n-space>
-    <n-space align="center">
+    <div class="flex h-full">
       <header-github/>
       <header-theme/>
-      <n-divider vertical/>
       <header-avatar/>
-    </n-space>
+    </div>
 
   </div>
 </template>

@@ -26,17 +26,12 @@
 </template>
 <script setup lang="ts">
 
-import {useAuthStore} from "@/store";
-import {useRouter} from "vue-router";
-import {router as globalRouter} from "@/router";
+
 import PageLogo from "@/layouts/components/logo/index.vue";
 import DarkSwitch from "@/components/common/dark-switch.vue";
 import LoginPassword from "@/views/login/components/login-password.vue";
 import LoginQrcode from "@/views/login/components/login-qrcode.vue";
 
-const ua = useAuthStore()
-
-const router = useRouter()
 
 </script>
 

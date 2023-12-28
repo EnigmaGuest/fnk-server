@@ -5,14 +5,14 @@
         <n-space align="center">
           <n-avatar :src="avatarUrl" round size="large"></n-avatar>
           <div class="flex-col">
-            <p class="text-18px font-semibold"> {{ us.userInfo.username }}</p>
-            <p class="text-14px">欢迎，海拉鲁最强骑士：{{ us.userInfo.username }}，请问，今天去教育人马讨伐了吗？</p>
+            <p class="text-18px font-semibold"> {{ us.userInfo?.username }}</p>
+            <p class="text-14px">欢迎，海拉鲁最强骑士：{{ us.userInfo?.username }}，请问今天要去野炊吗？</p>
           </div>
         </n-space>
         <n-space>
-          <n-statistic label="树根" tabular-nums value="115/120"></n-statistic>
-          <n-statistic label="呀哈哈" tabular-nums value="61/1000"></n-statistic>
-          <n-statistic label="神庙" tabular-nums value="67/152"></n-statistic>
+          <n-statistic label="树根" tabular-nums value="120/120"></n-statistic>
+          <n-statistic label="呀哈哈" tabular-nums value="117/1000"></n-statistic>
+          <n-statistic label="神庙" tabular-nums value="72/152"></n-statistic>
         </n-space>
       </n-space>
     </n-card>
@@ -33,17 +33,13 @@
 <script setup lang="ts">
 
 import {useAuthStore} from "@/store";
-import {login} from "@/service";
 import avatarUrl from "@/assets/images/linki.png"
 import TechnologyMain from "@/views/home/components/technology-main.vue";
 import QuickCard from "@/views/home/components/quick-card.vue";
 import DynamicInfo from "@/views/home/components/dynamic-info.vue";
 
 const us = useAuthStore()
-async function goNotFund() {
-  const data = await login({phone: "admin", password: "admin"})  // 测试接口
-  console.log(data)
-}
+
 </script>
 
 <style scoped>

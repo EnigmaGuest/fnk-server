@@ -47,3 +47,4 @@ target/
 /service-core/service-core-basic/src/main/resources/application-core-basic-prod.yml
 /prod/
 /dev/
+/frontend/dist.zip

@@ -1,7 +1,8 @@
 <template>
   <base-dropdown-container :options="options" size="medium" @select="handleSelect" >
       <div class="flex-center cursor-pointer">
-        <n-avatar :src="avatarUrl" round></n-avatar>
+        <n-divider vertical />
+        <n-avatar :src="avatarUrl" round class="ml-6px"></n-avatar>
       </div>
   </base-dropdown-container>
 </template>
@@ -13,6 +14,7 @@ import {renderIcon} from "@/utils";
 import {useDialog} from "naive-ui";
 import {useRouter} from "vue-router";
 import {inject} from "vue";
+import HeaderTheme from "@/layouts/components/header/header-theme.vue";
 const ua = useAuthStore()
 const ut = useRouteStore()
 const avatarUrl = ua.userInfo?.avatar || localAvatarUrl

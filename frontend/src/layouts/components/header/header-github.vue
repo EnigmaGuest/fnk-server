@@ -1,6 +1,6 @@
 <template>
 <base-hover-tip text="github地址">
-  <div class="flex text-24px cursor-pointer" @click="openGithub">
+  <div class="flex-center w-48px text-24px" @click="openGithub">
     <eg-icon icon="logos:github-icon" />
   </div>
 </base-hover-tip>

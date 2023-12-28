@@ -1,6 +1,6 @@
 <template>
   <base-hover-tip text="主题设置" >
-    <div class="flex text-24px cursor-pointer" @click="showSetting=!showSetting">
+    <div class="flex-center w-48px text-24px cursor-pointer " @click="showSetting=!showSetting">
       <icon-line-md:sunny-filled-loop class="text-#FFCC00" v-if="theme.mode=='light'" />
       <icon-line-md:moon-filled-loop v-else/>
     </div>

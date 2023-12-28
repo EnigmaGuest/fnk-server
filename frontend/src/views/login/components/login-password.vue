@@ -48,17 +48,9 @@ const handleSubmit = async () => {
   if (validate) {
     const {data, error} = await loginAdmin(formValue)
     if (!error) {
-      let flog = await ua.loginByToken(data.tokenValue)
-      if (flog) {
-        goHome()
-      } else {
-        // @ts-ignore
-        window.$message?.error("用户信息获取失败")
-        loading.value = false
-      }
-    } else {
-      loading.value = false
+      await ua.loginByToken(data.tokenValue)
     }
+    loading.value = false
   }
 
 }
