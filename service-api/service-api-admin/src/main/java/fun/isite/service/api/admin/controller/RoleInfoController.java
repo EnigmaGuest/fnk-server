@@ -1,17 +1,17 @@
 package fun.isite.service.api.admin.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import fun.isite.service.core.system.service.IRoleInfoService;
-import fun.isite.service.core.system.entity.RoleInfo;
-import fun.isite.service.common.db.dto.SplitPageDTO;
 import fun.isite.service.common.bean.http.RestResponse;
+import fun.isite.service.common.db.dto.SplitPageDTO;
 import fun.isite.service.common.db.vo.PageVO;
+import fun.isite.service.core.basic.controller.BaseController;
+import fun.isite.service.core.system.entity.RoleInfo;
+import fun.isite.service.core.system.service.IRoleInfoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import fun.isite.service.core.basic.controller.BaseController;
 
 import java.util.List;
 
@@ -58,18 +58,21 @@ public class RoleInfoController extends BaseController {
 
     @PostMapping
     @Operation(summary = "创建角色信息")
+//    @SaCheckPermission("system:role:add")
     public RestResponse<RoleInfo> create(@RequestBody @Validated RoleInfo req) {
         return RestResponse.ok(this.service.saveRole(req));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "更新指定ID的角色信息")
+//    @SaCheckPermission("system:role:edit")
     public RestResponse<RoleInfo> update(@PathVariable String id, @RequestBody @Validated RoleInfo req) {
         return RestResponse.ok(this.service.updateRole(req));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除指定ID的角色信息")
+//    @SaCheckPermission("system:role:remove")
     public RestResponse<Integer> remove(@PathVariable String id) {
 
         return RestResponse.ok(this.service.deleteByRoleId(id));
@@ -77,6 +80,7 @@ public class RoleInfoController extends BaseController {
 
     @DeleteMapping
     @Operation(summary = "批量删除指定ID的角色信息")
+//    @SaCheckPermission("system:role:remove")
     public RestResponse<Void> remove(@RequestParam("id-list") List<String> idList) {
         this.service.remove(idList);
         return RestResponse.ok();

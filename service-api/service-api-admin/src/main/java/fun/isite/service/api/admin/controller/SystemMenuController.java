@@ -54,18 +54,21 @@ public class SystemMenuController extends BaseController {
 
     @PostMapping
     @Operation(summary = "创建系统菜单")
+//    @SaCheckPermission("system:menu:add")
     public RestResponse<SystemMenu> create(@RequestBody @Validated SystemMenu req) {
         return RestResponse.ok(this.service.create(req));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "更新指定ID的系统菜单")
+//    @SaCheckPermission("system:menu:edit")
     public RestResponse<SystemMenu> update(@PathVariable String id, @RequestBody @Validated SystemMenu req) {
         return RestResponse.ok(this.service.update(id, req));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除指定ID的系统菜单")
+//    @SaCheckPermission("system:menu:remove")
     public RestResponse<Void> remove(@PathVariable String id) {
         this.service.removeSingle(id);
         return RestResponse.ok();
@@ -73,6 +76,7 @@ public class SystemMenuController extends BaseController {
 
     @DeleteMapping
     @Operation(summary = "批量删除指定ID的系统菜单")
+//    @SaCheckPermission("system:menu:remove")
     public RestResponse<Void> remove(@RequestParam("id-list") List<String> idList) {
         this.service.remove(idList);
         return RestResponse.ok();

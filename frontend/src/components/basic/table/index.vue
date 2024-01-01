@@ -1,7 +1,8 @@
 <template>
   <!--  搜索  -->
   <div>
-    <n-card :bordered="false"  v-if="searchFormFields.length" :content-style="{margin:0,padding:0 }" class="px-24px mt-6px pt-20px mb-12px">
+    <n-card :bordered="false" v-if="searchFormFields.length" :content-style="{margin:0,padding:0 }"
+            class="px-24px mt-6px pt-20px mb-12px">
       <BaseForm :data="formData" :items="searchFormFields" inline ref="formDom"
                 @collapse="getTableHeight" is-search
                 submit-text="搜索"
@@ -44,16 +45,27 @@
           </n-button>
         </n-space>
       </div>
-      <n-data-table :columns="tableColumns" :row-key="(rowData:any)=>rowData[props.rowKey]" :data="tableData" :loading="props.loading" striped :pagination="pagination"
-                    :max-height="tableHeight" :scroll-x="tableHeight" @update:page-size="onPageSizeChange" @update:page="onPageChange">
+      <n-data-table :columns="tableColumns" :row-key="(rowData:any)=>rowData[props.rowKey]" :data="tableData"
+                    :loading="props.loading" striped :pagination="false"
+                    :max-height="tableHeight" :scroll-x="tableHeight">
         <template #empty>
-         <div class="flex-col-center">
-           <icon-local-empty class="text-400px text-primary"></icon-local-empty>
-           <p class="text-20px text-primary" v-if="!props.emptyText">无{{props.title}}数据~</p>
-           <p class="text-20px text-primary" v-else>{{props.emptyText}}</p>
-         </div>
+          <div class="flex-col-center">
+            <icon-local-empty class="text-400px text-primary"></icon-local-empty>
+            <p class="text-20px text-primary" v-if="!props.emptyText">无{{ props.title }}数据~</p>
+            <p class="text-20px text-primary" v-else>{{ props.emptyText }}</p>
+          </div>
         </template>
       </n-data-table>
+      <div class="w-full flex-col items-end mt-12px">
+        <n-pagination
+            :page='parseInt(data?.current ?? 1)'
+            :page-size='parseInt(data?.size ?? 10)'
+            :page-count='parseInt(data?.pages ?? 0)'
+            :page-sizes='[10, 20, 30, 40, 50]'
+            show-size-picker
+            @update:page='onPageChange'
+            @update:pageSize='onPageSizeChange'/>
+      </div>
     </n-card>
   </div>
 </template>
@@ -129,22 +141,22 @@ const props = defineProps({
     default: 'page'
   },
   // 搜索个数
-  searchCols :{
-    type:Number,
-    default:4
+  searchCols: {
+    type: Number,
+    default: 4
   },
-  isSelect:{
-    type:Boolean,
-    default:false
+  isSelect: {
+    type: Boolean,
+    default: false
   },
-  emptyText:{
-    type:String,
-    default:null
+  emptyText: {
+    type: String,
+    default: null
   },
   // 未使用
-  loadingText:{
-    type:String,
-    default:null
+  loadingText: {
+    type: String,
+    default: null
   }
 })
 
@@ -176,12 +188,12 @@ const emits = defineEmits<{
 
 const formData = reactive({});
 
-// 分页数据
+// 分页数据 空了处理
 const pagination = reactive({
   page: parseInt(props.data?.current ?? 1),
   pageSize: parseInt(props.data?.size ?? 10),
-  pageCount: parseInt(props.data?.total ?? 1),
-  pageSizes: [10, 20, 30, 40, 50],
+  pageCount: parseInt(props.data?.pages ?? 0),
+  pageSizes: [5, 20, 30, 40, 50],
   showSizePicker: true
 });
 
@@ -210,10 +222,10 @@ const tableColumns = computed(() => {
       ...defaultAction
     } as any)
   }
-  if (props.isSelect){
+  if (props.isSelect) {
     return [{
       type: 'selection',
-    },...columns]
+    }, ...columns]
   }
   return columns
 })
@@ -306,15 +318,16 @@ function getTableHeight(num?: number) {
   if (num) {
     tableHeight.value = window.innerHeight - 108 - num - 20 - getDomHeight(headDom) - 80 - 86 - 12
   } else {
-    tableHeight.value = window.innerHeight - 108 - formDom.value?.height - getDomHeight(headDom) - 80 - 86 -6
+    tableHeight.value = window.innerHeight - 108 - formDom.value?.height - getDomHeight(headDom) - 80 - 86 - 6
   }
 }
 
-function onFormSubmit(state:boolean){
-  if(state){
+function onFormSubmit(state: boolean) {
+  if (state) {
     onGetTableData()
   }
 }
+
 function onGetTableData() {
   if (props.type === 'page') {
     emits('getData', {

@@ -56,18 +56,21 @@ public class AdminUserController extends BaseController {
 
     @PostMapping
     @Operation(summary = "创建系统用户")
+//    @SaCheckPermission("system:user:add")
     public RestResponse<AdminUser> create(@RequestBody @Validated AdminUser req) {
         return RestResponse.ok(this.service.saveAdminUser(req));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "更新指定ID的系统用户")
+//    @SaCheckPermission("system:user:edit")
     public RestResponse<AdminUser> update(@PathVariable String id, @RequestBody @Validated AdminUser req) {
         return RestResponse.ok(this.service.updateAdminUser(req));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除指定ID的系统用户")
+//    @SaCheckPermission("system:user:remove")
     public RestResponse<Void> remove(@PathVariable String id) {
         this.service.removeSingle(id);
         return RestResponse.ok();
@@ -75,6 +78,7 @@ public class AdminUserController extends BaseController {
 
     @DeleteMapping
     @Operation(summary = "批量删除指定ID的系统用户")
+//    @SaCheckPermission("system:user:remove")
     public RestResponse<Void> remove(@RequestParam("id-list") List<String> idList) {
         this.service.remove(idList);
         return RestResponse.ok();

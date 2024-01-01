@@ -104,6 +104,7 @@ public class CodeGenerate {
                         .enableBaseResultMap()
                         .formatXmlFileName("%sMapper"))
                 .injectionConfig(builder -> {
+                    // vue代码生成配置
                     builder.customFile(new HashMap<String, String>() {{
                         put("index.vue", "/templates/vue-page.ftl");
                         put("entity-drawer.vue", "/templates/vue-drawer.ftl");
