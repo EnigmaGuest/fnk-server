@@ -77,6 +77,18 @@ pnpm run dev
 pnpm run build
 ```
 
+## 打包
+### maven命令打包
+```bash
+# 仅参考
+mvn clean package -Dmaven.test.skip=true -Pprod
+```
+### idea打包
+![img_1.png](doc/image/build/img_1.png)
+
+打包后的文件在 项目根目录下 dev文件或者prod文件中（根据自己配置output-dir）
+![img.png](doc/image/build/img.png)
+
 ## 问题沟通交流QQ交流群
 ![image](https://github.com/EnigmaGuest/fnk-server/assets/26734130/68f3c27e-c447-4a3b-b9c1-4f5d2dda8267)
 
