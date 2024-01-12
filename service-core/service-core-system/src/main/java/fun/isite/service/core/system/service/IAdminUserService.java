@@ -48,6 +48,9 @@ public interface IAdminUserService extends IBaseService<AdminUser> {
      */
     TokenVO login(LoginAdminDTO loginAdminDTO);
 
+    // 退出登录
+    void logout(String userId);
+
     /**
      * 手机号码是否存在
      *

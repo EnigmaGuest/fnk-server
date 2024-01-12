@@ -15,3 +15,7 @@ export const loginAdmin = async (data) => {
 export const getAdminInfo = async () => {
     return await request.get<AdminUserVO>("account/admin")
 }
+
+export const logout = async () => {
+    return await request.post("/account/logout")
+}

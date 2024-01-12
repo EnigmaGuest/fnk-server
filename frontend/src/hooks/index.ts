@@ -1,1 +1,1 @@
-export * from './use-page-router'
+export * from './usePageRouter'

@@ -8,6 +8,7 @@ import fun.isite.service.common.tools.lang.AssertUtils;
 import fun.isite.service.common.tools.utils.SaltUtils;
 import fun.isite.service.core.basic.enums.GenderType;
 import fun.isite.service.core.basic.vo.TokenVO;
+import fun.isite.service.core.system.cache.RoleCache;
 import fun.isite.service.core.system.dto.LoginAdminDTO;
 import fun.isite.service.core.system.entity.AdminUser;
 import fun.isite.service.core.system.mapper.AdminUserMapper;
@@ -72,6 +73,8 @@ public class AdminUserService extends BaseService<AdminUserMapper, AdminUser> im
         AssertUtils.isFalse(this.updateById(adminUser), "更新用户失败！");
         userRoleService.deleteByUserId(adminUser.getId());
         userRoleService.saveUserRole(adminUser.getId(), adminUser.getRoleIdList());
+        // 强制退出被修改的用户使其重新登录
+        logout(adminUser.getId());
         return adminUser;
     }
 
@@ -98,6 +101,12 @@ public class AdminUserService extends BaseService<AdminUserMapper, AdminUser> im
         }
         StpUtil.login(adminUser.getId());
         return TokenVO.generateFromSaToken(StpUtil.getTokenInfo());
+    }
+
+    @Override
+    public void logout(String userId) {
+        StpUtil.logout(userId);
+        RoleCache.resetUserRoleCache(userId);
     }
 
     @Override

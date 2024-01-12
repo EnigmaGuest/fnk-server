@@ -1,10 +1,10 @@
 package fun.isite.service.core.system.impl;
 
+import fun.isite.service.common.db.impl.BaseService;
 import fun.isite.service.core.system.entity.SystemMenu;
 import fun.isite.service.core.system.entity.UserRole;
 import fun.isite.service.core.system.mapper.UserRoleMapper;
 import fun.isite.service.core.system.service.IUserRoleService;
-import fun.isite.service.common.db.impl.BaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,6 +2,7 @@ package fun.isite.service.core.system.impl;
 
 import fun.isite.service.common.db.impl.BaseService;
 import fun.isite.service.common.tools.lang.AssertUtils;
+import fun.isite.service.core.system.cache.RoleCache;
 import fun.isite.service.core.system.entity.RoleInfo;
 import fun.isite.service.core.system.mapper.RoleInfoMapper;
 import fun.isite.service.core.system.service.IRoleInfoService;
@@ -39,12 +40,19 @@ public class RoleInfoService extends BaseService<RoleInfoMapper, RoleInfo> imple
         AssertUtils.isFalse(this.updateById(roleInfo), "更新角色信息失败");
         roleMenuService.deleteByRoleId(roleInfo.getId());
         AssertUtils.isFalse(roleMenuService.saveRoleMenu(roleInfo.getId(), roleInfo.getRoleScope()), "保存角色菜单关联失败");
+        // 更新缓存
+        RoleCache.setRolePermissionKey(roleInfo.getRoleKey(),roleMenuService.queryPermissionKeyByRoleKey(roleInfo.getRoleKey()));
+        // 删除SaToken缓存
+        RoleCache.deleteSaTokenRoleCache(roleInfo.getRoleKey());
         return roleInfo;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int deleteByRoleId(String roleId) {
+        RoleInfo roleInfo =  this.getById(roleId);
+        RoleCache.resetRoleCache(roleInfo.getRoleKey());
+        RoleCache.deleteSaTokenRoleCache(roleInfo.getRoleKey());
         int count = roleMenuService.deleteByRoleId(roleId);
         return count + this.baseMapper.deleteById(roleId);
     }

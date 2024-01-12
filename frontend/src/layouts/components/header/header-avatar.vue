@@ -37,9 +37,7 @@ const options:System.GlobalDropdown[] = [
   },
 ]
 const dialog = useDialog()
-const router = useRouter()
 const handleSelect = (key: string) => {
-  console.log(key)
   switch (key) {
     case 'profile':
       break
@@ -53,7 +51,6 @@ const handleSelect = (key: string) => {
         negativeText: '取消',
         onPositiveClick: () => {
           ua.loginOut()
-          router.push({name: 'login'})
         }
       })
       break

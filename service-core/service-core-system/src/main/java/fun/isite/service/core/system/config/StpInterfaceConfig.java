@@ -5,6 +5,7 @@ import cn.dev33.satoken.session.SaSessionCustomUtil;
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
 import fun.isite.service.core.system.cache.RoleCache;
+import fun.isite.service.core.system.consts.RoleCacheKey;
 import fun.isite.service.core.system.service.IRoleMenuService;
 import fun.isite.service.core.system.service.IUserRoleService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,8 @@ public class StpInterfaceConfig implements StpInterface {
     public List<String> getPermissionList(Object loginId, String loginType) {
         List<String> permissionList = new ArrayList<>();
         for (String roleKey : getRoleList(loginId, loginType)) {
-            SaSession roleSession = SaSessionCustomUtil.getSessionById("role-key-" + roleKey);
-            List<String> list = roleSession.get("Permission_List", () -> {
+            SaSession roleSession = SaSessionCustomUtil.getSessionById(RoleCacheKey.ROLE_SESSION_ID + roleKey);
+            List<String> list = roleSession.get(RoleCacheKey.PERMISSION_SESSION_KEY, () -> {
                 // 从数据库查询这个角色所拥有的权限列表
                 List<String> permissionKeyList = RoleCache.getRolePermissionKey(roleKey);
                 if (permissionKeyList == null) {
@@ -55,7 +56,7 @@ public class StpInterfaceConfig implements StpInterface {
     public List<String> getRoleList(Object loginId, String loginType) {
         SaSession session = StpUtil.getSessionByLoginId(loginId);
         String userId = (String) loginId;
-        return session.get("Role_List", () -> {
+        return session.get(RoleCacheKey.ROLE_SESSION_KEY, () -> {
             // 从数据库查询这个账号id拥有的角色列表
             List<String> roleList = RoleCache.getUserRoleKey(userId);
             if (roleList == null) {

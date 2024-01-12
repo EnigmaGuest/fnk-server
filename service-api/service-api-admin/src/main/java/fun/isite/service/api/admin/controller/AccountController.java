@@ -34,10 +34,18 @@ public class AccountController extends BaseController {
     }
 
     // 获取当前登录用户
-     @GetMapping("/admin")
+    @GetMapping("/admin")
     @Operation(summary = "获取当前登录用户")
     public RestResponse<AdminUserVO> get() {
         return RestResponse.ok(adminUserService.getCurrentAdminInfo(this.authId()));
+    }
+
+    // 退出登录
+    @PostMapping("/logout")
+    @Operation(summary = "退出登录")
+    public RestResponse<Void> logout() {
+        adminUserService.logout(this.authId());
+        return RestResponse.ok();
     }
 
 

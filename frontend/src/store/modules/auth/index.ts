@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {SecureStorage} from "@/store/plugins";
 import {useRouteStore} from "@/store/modules/route";
-import {getAdminInfo} from "@/service/api/account";
+import {getAdminInfo, logout} from "@/service/api/account";
 import {useTabsStore} from "@/store";
 import {usePageRouter} from "@/hooks";
 
@@ -63,10 +63,18 @@ export const useAuthStore = defineStore({
         /**
          * 退出登录
          */
-        loginOut() {
+        async loginOut() {
+            const {error} = await logout();
+            if(error){
+                // @ts-ignore
+                window.$message.error(error.message)
+                return
+            }
             this.$reset();
             useRouteStore().resetRouteStore()
             useTabsStore().$reset()
+            const page = usePageRouter(false)
+            page.toLogin()
         }
     },
     persist: {

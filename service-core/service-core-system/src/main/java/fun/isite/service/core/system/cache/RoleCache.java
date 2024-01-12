@@ -74,4 +74,12 @@ public class RoleCache {
     public static void resetRoleCache(String roleKey) {
         RedisUtils.getINSTANCE().del(RoleCacheKey.ROLE_PERMISSION + roleKey);
     }
+
+    /**
+     * 删除SaToken角色缓存
+     * @param roleKey 角色key
+     */
+    public static void deleteSaTokenRoleCache(String roleKey) {
+        RedisUtils.getINSTANCE().del(RoleCacheKey.AUTH_CUSTOM_SESSION_KEY + roleKey);
+    }
 }
