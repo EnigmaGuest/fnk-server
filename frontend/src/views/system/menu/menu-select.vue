@@ -2,7 +2,6 @@
   <n-tree-select
       v-model:value="selectValue"
       :multiple="props.multiple"
-      cascade
       checkable
       :loading="props.loading"
       :options="props.options"
