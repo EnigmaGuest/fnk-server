@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" class="w-full flex-col " :class="{'bg-#fff dark:bg-dark':!props.transparent}">
+  <div  class="w-full flex-col  flex-1" :class="[transparent?'':'bg-container']" >
     <slot></slot>
   </div>
 
@@ -17,12 +17,7 @@ const props = defineProps({
   /** 是否透明 */
   transparent: {
     type: Boolean,
-    default: false
-  },
-  /** 是否自动高度 true 自动计算 否100% */
-  height: {
-    type: String,
-    default: 'calc(100vh - 114px)'
+    default: true
   },
   round: {
     type: Boolean,
@@ -30,16 +25,7 @@ const props = defineProps({
   }
 })
 const theme =  useThemeStore()
-const style = computed(() => {
-  const style = {
-    height: props.height
-  } as any
 
-  if (props.round){
-    style.borderRadius= theme.round+'px'
-  }
-  return style
-})
 
 </script>
 

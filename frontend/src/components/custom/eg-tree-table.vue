@@ -1,54 +1,45 @@
 <template>
   <!--  搜索  -->
-  <div>
-    <n-card :bordered="false" v-if="searchFormFields.length" :content-style="{margin:0,padding:0 }"
-            class="px-24px pt-20px mb-12px mt-6px">
-      <BaseForm :data="formData" :items="searchFormFields" inline ref="formDom"
-                is-search
-                @collapse="getTableHeight"
-                submit-text="搜索"
-                :grid-props="{cols: props.searchCols}" @submit="onFormSubmit" @reset="onGetTableData"/>
+  <div class="h-full  flex-col gap-12px">
+    <n-card size="small" v-if="searchFormFields.length" :bordered="false">
+      <n-collapse>
+        <n-collapse-item title="搜索条件">
+          <BaseForm
+              :data="formData"
+              :items="searchFormFields"
+              inline
+              ref="formDom"
+              :label-align="'right'"
+              :label-width="120"
+              is-search
+              submit-text="搜索"
+              :grid-props="{ cols: props.searchCols }"
+              @submit="onFormSubmit"
+              @reset="onGetTableData"
+          />
+        </n-collapse-item>
+      </n-collapse>
     </n-card>
-    <n-card :bordered="false" :content-style="{margin:0,padding:'16px' }" class="mb-12px mt-10px">
-      <div class="flex items-center justify-between w-full mb-12px" ref="headDom">
-        <!--     左     -->
-        <div class="flex-col">
-          <n-space align="start">
-            <template v-if="props.title">
-              <n-space align="center" size="small">
-                <p class="text-16px h-22px font-bold">{{ props.title }}</p>
-                <n-tooltip trigger="hover" v-if="props.desc">
-                  <template #trigger>
-                    <icon-line-md:question-circle class="text-18px text-gray-400 cursor-pointer"/>
-                  </template>
-                  {{ props.desc }}
-                </n-tooltip>
-              </n-space>
-            </template>
-            <template v-if="!props.title && props.isAddAction">
-              <n-button @click='emits("add")' type='primary'>
-                <icon-line-md:plus class='mr-4px text-20px'/>
-                新增
-              </n-button>
-            </template>
-          </n-space>
-        </div>
-
-        <!--     右     -->
-        <n-space align="end">
-          <n-button @click='emits("add")' dashed type='primary' v-if="props.title && props.isAddAction">
+    <n-card :bordered="false" :title="props.title" :content-style="{margin:0 }" class="flex-1 overflow-hidden">
+      <template #header-extra>
+        <n-flex>
+          <n-button @click='emits("add")' size="small"  dashed type='primary' v-if="props.title && props.isAddAction">
             <icon-line-md:plus class='mr-4px text-20px'/>
             新增数据
           </n-button>
-          <n-button @click='onGetTableData' type='primary'>
+          <n-button size="small" @click='onGetTableData' type='primary'>
             <icon-line-md:rotate-270 class='mr-4px text-16px' :class="{ 'animate-spin': props.loading }"/>
             刷新表格
           </n-button>
-        </n-space>
-      </div>
+        </n-flex>
+      </template>
       <n-data-table :columns="tableColumns" :row-key="(rowData:any)=>rowData[props.rowKey]" :data="tableData"
                     :loading="props.loading" striped
-                    :max-height="tableHeight" :scroll-x="tableHeight">
+                    class="h-full"
+                    :pagination="pagination"
+                    @update:page-size="onPageSizeChange"
+                    @update:page="onPageChange"
+                    flex-height :scroll-x="1500">
       </n-data-table>
     </n-card>
   </div>
@@ -274,22 +265,17 @@ const searchFormFields = computed(() => {
   });
 })
 
-const headDom = ref()
 const formDom = ref()
 // 获取dom的高度
-const getDomHeight = (dom: any) => {
-  return unref(dom)?.clientHeight ?? 0
+
+function onPageChange(page: number) {
+  pagination.page = page;
+  onGetTableData();
 }
-const tableHeight = ref(910)
 
-
-// 高度处理
-function getTableHeight(num?: number) {
-  if (num) {
-    tableHeight.value = window.innerHeight - 108 - num - 20 - getDomHeight(headDom) - 80 - 86 - 12
-  } else {
-    tableHeight.value = window.innerHeight - 108 - formDom.value?.height - getDomHeight(headDom) - 80 - 86 - 6
-  }
+function onPageSizeChange(pageSize: number) {
+  pagination.pageSize = pageSize;
+  onGetTableData();
 }
 
 function onFormSubmit(state: boolean) {
@@ -319,7 +305,6 @@ function onGetTableData() {
 
 onMounted(() => {
   // 获取当前屏幕高度
-  getTableHeight()
   onGetTableData()
 })
 

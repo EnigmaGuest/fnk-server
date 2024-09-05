@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-col-center wh-full">
+  <div class="flex-col-center wh-full bg-container">
     <icon-local-404 class="text-400px text-primary" v-if="props.type==='404'"/>
     <icon-local-403 class="text-400px text-primary" v-if="props.type==='403'"/>
     <icon-local-500 class="text-400px text-primary" v-if="props.type==='500'"/>

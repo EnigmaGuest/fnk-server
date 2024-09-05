@@ -4,12 +4,10 @@
 
 ## 项目截图
 
-![img_3.png](doc%2Fimage%2Fimg_3.png)
-![img.png](doc%2Fimage%2Fimg.png)
-![img_1.png](doc%2Fimage%2Fimg_1.png)
-![img_2.png](doc%2Fimage%2Fimg_2.png)
-![img_4.png](doc%2Fimage%2Fimg_4.png)
-![img_5.png](doc%2Fimage%2Fimg_5.png)
+![img_5.png](doc/image/img_6.png)
+![img_7.png](doc/image/img_7.png)
+![img_7.png](doc/image/img_8.png)
+
 
 ## 项目特点
 
